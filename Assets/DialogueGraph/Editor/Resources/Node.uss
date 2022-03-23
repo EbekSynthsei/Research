@@ -1,0 +1,25 @@
+.node #title{
+background-color : rgba(0, 63, 63, 205);
+}
+
+.node #contents{
+background-color : rgba(20, 63, 63, 225);
+}
+
+.node #settings {
+margin-top: 8px;
+margin-bottom: 8px;
+margin-left: 16px;
+margin-right: 4px;
+padding-right: 4px;
+}
+.node #settings Label{
+win-width: 80px;
+}
+.node #settings TextField{
+margin: 5;
+}
+
+.node.collapsed #settings{
+display:none;
+}
