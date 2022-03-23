@@ -12,14 +12,14 @@ public class LanguageUpdater
         List<GraphTree> graphTrees = GenericHelper.FindAllObjectsFromResources<GraphTree>();
         foreach(GraphTree graph in graphTrees)
         {
-            foreach(DialogueNodeData uINodeData in graph.dialogueNodeDatas)
+            foreach(DialogueNodeData dialogueNodeData in graph.dialogueNodeDatas)
             {
-                uINodeData.textBox_languages = UpdateLanguageGeneric(uINodeData.textBox_languages);
-                uINodeData.audioClips_List = UpdateLanguageGeneric(uINodeData.audioClips_List);
+                dialogueNodeData.textBox_languages = UpdateLanguageGeneric(dialogueNodeData.textBox_languages);
+                dialogueNodeData.audioClips_List = UpdateLanguageGeneric(dialogueNodeData.audioClips_List);
                 
-                foreach(DialogueNodePort uINodePort in uINodeData.dialogueNodePorts)
+                foreach(DialogueNodePort dialogueNodePort in dialogueNodeData.dialogueNodePorts)
                 {
-                    uINodePort.ChoiceText_List = UpdateLanguageGeneric(uINodePort.ChoiceText_List);
+                    dialogueNodePort.ChoiceText_List = UpdateLanguageGeneric(dialogueNodePort.ChoiceText_List);
                 }
             }
         }

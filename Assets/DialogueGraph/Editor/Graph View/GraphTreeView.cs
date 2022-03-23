@@ -80,7 +80,7 @@ namespace LaniakeaCode.GraphSystem
             StartNode tmp = new StartNode(_pos, editorWindow, this);
             return tmp;
         }
-        public DialogueNode CreateUINode(Vector2 _pos)
+        public DialogueNode CreateDialogueNode(Vector2 _pos)
         {
             DialogueNode tmp = new DialogueNode(_pos, editorWindow, this);
             return tmp;

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using UnityEditor;
 using UnityEngine;
 
 public class LoadCSV
@@ -13,7 +14,7 @@ public class LoadCSV
     private string csvDirectoryName = "Resources/DialogueGraphsCSV";
     private string csvFileName = "DialogueCSV_Load.csv";
     
-    private void Load()
+    public void Load()
     {
         List<List<string>> result = ParseCSV(File.ReadAllText($"{Application.dataPath}/{ csvDirectoryName}/{csvFileName}"));
 
@@ -31,6 +32,8 @@ public class LoadCSV
                     LoadIntoNodePort(result, headers, nodePort);
                 }
             }
+            EditorUtility.SetDirty(tree);
+            AssetDatabase.SaveAssets();
         }
 
     }
@@ -44,7 +47,7 @@ public class LoadCSV
                 {
                     foreach(LanguageType languageType in (LanguageType[])Enum.GetValues(typeof(LanguageType)))
                     {
-                        if(_headers[i] == languageType.ToString())
+                        if (_headers[i] == languageType.ToString())
                         {
                             _nodeData
                                 .textBox_languages
@@ -80,6 +83,7 @@ public class LoadCSV
             }
         }
     }
+
     /////////////////////////////////////
     ///FURUKUZU GITHUB UNITY CSV READER
     ///

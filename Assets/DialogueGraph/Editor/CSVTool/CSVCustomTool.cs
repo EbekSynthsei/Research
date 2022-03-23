@@ -13,6 +13,14 @@ public class CSVCustomTool
         Debug.Log("<color=green> Saved CSV!</color>");
     }
 
+    [MenuItem("/LaniakeaTools/LoadGraphFromCSV")]
+    public static void LoadFromCSV()
+    {
+        LoadCSV loadCSV = new LoadCSV();
+        loadCSV.Load();
+        Debug.Log("<color=green> Loaded CSV!</color>");
+    }
+
     [MenuItem("/LaniakeaTools/UpdateGraphLanguage")]
     public static void UpdateGraphLanguage()
     {

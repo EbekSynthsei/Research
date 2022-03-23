@@ -103,10 +103,10 @@ namespace LaniakeaCode.GraphSystem
                 switch (node)
                 {
 
-                    case DialogueNode uiNode:
+                    case DialogueNode dialogueNode:
                         _graphTree
                         .dialogueNodeDatas
-                        .Add(SaveNodeData(uiNode));
+                        .Add(SaveNodeData(dialogueNode));
                         break;
                     case StartNode startNode:
                         _graphTree
@@ -279,7 +279,7 @@ namespace LaniakeaCode.GraphSystem
             //Graph node
             foreach (DialogueNodeData nodeData in _graphTree.dialogueNodeDatas)
             {
-                DialogueNode tempNode = graphView.CreateUINode(nodeData.position);
+                DialogueNode tempNode = graphView.CreateDialogueNode(nodeData.position);
 
                 tempNode
                     .NodeGUID = nodeData.nodeGUID;

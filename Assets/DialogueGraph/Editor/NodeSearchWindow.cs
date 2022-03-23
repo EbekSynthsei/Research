@@ -32,7 +32,7 @@ namespace LaniakeaCode.GraphSystem
             new SearchTreeGroupEntry(new GUIContent("Graph Node"), 0),
             new SearchTreeGroupEntry(new GUIContent("Graph Tree"),1),
             AddNodeSearch("Start Node", new StartNode()),
-            AddNodeSearch("UI Node", new DialogueNode()),
+            AddNodeSearch("Dialogue Node", new DialogueNode()),
             AddNodeSearch("Graph Event Node", new GraphEventNode()),
             AddNodeSearch("End Node", new EndNode()),
         };
@@ -74,7 +74,7 @@ namespace LaniakeaCode.GraphSystem
                     graphView.AddElement(graphView.CreateStartNode(_pos));
                     return true;
                 case DialogueNode node:
-                    graphView.AddElement(graphView.CreateUINode(_pos));
+                    graphView.AddElement(graphView.CreateDialogueNode(_pos));
                     return true;
                 case GraphEventNode node:
                     graphView.AddElement(graphView.CreateGraphEventNode(_pos));

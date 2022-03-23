@@ -137,12 +137,12 @@ namespace LaniakeaCode.Utilities
             }
         }
 
-        private void MakeButtons(List<DialogueNodePort> _uINodePorts)
+        private void MakeButtons(List<DialogueNodePort> _dialogueNodePorts)
         {
             List<string> texts = new List<string>();
             List<UnityAction> unityActions = new List<UnityAction>();
 
-            foreach(DialogueNodePort nodePort in _uINodePorts)
+            foreach(DialogueNodePort nodePort in _dialogueNodePorts)
             {
                 texts
                     .Add(nodePort

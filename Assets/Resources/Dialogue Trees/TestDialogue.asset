@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e59c5d80d3db814b999108cca52c8b7, type: 3}
+  m_Name: TestDialogue
+  m_EditorClassIdentifier: 
+  nodeLinks:
+  - baseNodeGUID: b6073fa1-a848-49f6-9c2d-6ee5d5273211
+    targetNodeGUID: 4ba84557-2471-4b47-9864-df62fa25b57f
+    outputPortName: 
+    inputPortName: 
+  - baseNodeGUID: 4ba84557-2471-4b47-9864-df62fa25b57f
+    targetNodeGUID: 46f5f038-27f8-445f-b8b9-ca01c9d75440
+    outputPortName: 
+    inputPortName: 
+  - baseNodeGUID: 46f5f038-27f8-445f-b8b9-ca01c9d75440
+    targetNodeGUID: 2eba2f96-c64c-42f0-b704-c30c5d0ac999
+    outputPortName: 
+    inputPortName: 
+  startNodeDatas:
+  - nodeGUID: b6073fa1-a848-49f6-9c2d-6ee5d5273211
+    position: {x: 350, y: 241}
+  endNodeDatas:
+  - nodeGUID: 2eba2f96-c64c-42f0-b704-c30c5d0ac999
+    position: {x: 951, y: 244}
+    endNodeType: 0
+  dialogueNodeDatas:
+  - nodeGUID: 4ba84557-2471-4b47-9864-df62fa25b57f
+    position: {x: 480, y: 241}
+    dialogueNodePorts:
+    - PortGUID: 869a6bcd-55d4-42f2-a6a0-f5e6130811b2
+      InputGuid: 46f5f038-27f8-445f-b8b9-ca01c9d75440
+      OutputGuid: 4ba84557-2471-4b47-9864-df62fa25b57f
+      ChoiceText_List:
+      - LanguageType: 0
+        LanguageGenericType: Sure!
+      - LanguageType: 1
+        LanguageGenericType: Scelta!
+    sprite: {fileID: 0}
+    switchType: 0
+    textBox_languages:
+    - LanguageType: 0
+      LanguageGenericType: Trying to get it done
+    - LanguageType: 1
+      LanguageGenericType: Provando a farla funzionare
+    audioClips_List:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    Name: Dialogo Di Test
+  graphEventNodeDatas:
+  - nodeGUID: 46f5f038-27f8-445f-b8b9-ca01c9d75440
+    position: {x: 763, y: 243}
+    graphEvent: {fileID: 0}
