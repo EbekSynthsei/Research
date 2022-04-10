@@ -29,6 +29,7 @@ display:none;
 	width : 200px;
 	margin : auto;
 }
+
 .PortName{
-	display.none;
+	display:none;
 }

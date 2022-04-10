@@ -17,12 +17,12 @@ MonoBehaviour:
     targetNodeGUID: 4ba84557-2471-4b47-9864-df62fa25b57f
     outputPortName: 
     inputPortName: 
-  - baseNodeGUID: 4ba84557-2471-4b47-9864-df62fa25b57f
-    targetNodeGUID: 46f5f038-27f8-445f-b8b9-ca01c9d75440
-    outputPortName: 
-    inputPortName: 
   - baseNodeGUID: 46f5f038-27f8-445f-b8b9-ca01c9d75440
     targetNodeGUID: 2eba2f96-c64c-42f0-b704-c30c5d0ac999
+    outputPortName: 
+    inputPortName: 
+  - baseNodeGUID: 4ba84557-2471-4b47-9864-df62fa25b57f
+    targetNodeGUID: 46f5f038-27f8-445f-b8b9-ca01c9d75440
     outputPortName: 
     inputPortName: 
   startNodeDatas:
@@ -34,7 +34,7 @@ MonoBehaviour:
     endNodeType: 0
   dialogueNodeDatas:
   - nodeGUID: 4ba84557-2471-4b47-9864-df62fa25b57f
-    position: {x: 480, y: 241}
+    position: {x: 490, y: 219}
     dialogueNodePorts:
     - PortGUID: 869a6bcd-55d4-42f2-a6a0-f5e6130811b2
       InputGuid: 46f5f038-27f8-445f-b8b9-ca01c9d75440
@@ -43,8 +43,8 @@ MonoBehaviour:
       - LanguageType: 0
         LanguageGenericType: Sure!
       - LanguageType: 1
-        LanguageGenericType: Scelta!
-    sprite: {fileID: 0}
+        LanguageGenericType: SceltaBella!
+    SpeakerImage: {fileID: 21300000, guid: 5ff5cad5e82c42046bd0f6d57c21bc96, type: 3}
     switchType: 0
     textBox_languages:
     - LanguageType: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
       LanguageGenericType: {fileID: 0}
     - LanguageType: 1
       LanguageGenericType: {fileID: 0}
-    Name: Dialogo Di Test
+    CharacterName: Pezzotto
   graphEventNodeDatas:
   - nodeGUID: 46f5f038-27f8-445f-b8b9-ca01c9d75440
     position: {x: 763, y: 243}

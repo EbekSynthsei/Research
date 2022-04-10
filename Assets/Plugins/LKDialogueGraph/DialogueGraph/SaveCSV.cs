@@ -26,8 +26,10 @@ public class SaveCSV
             {
 
                 List<string> texts = new List<string>();
+
                 texts.Add(dialogueNodeData.nodeGUID);
                 texts.Add(item.name);
+
                 foreach (LanguageType languageType in (LanguageType[])Enum.GetValues(typeof(LanguageType)))
                 {
                     string tmp = dialogueNodeData
@@ -39,11 +41,13 @@ public class SaveCSV
                     
                     texts.Add($"\"{tmp}\"");
                 }
+                AppendToFile(texts);
 
                 foreach (DialogueNodePort nodePort in dialogueNodeData.dialogueNodePorts)
                 {
-                    
+                    texts = new List<string>();
                     texts.Add(nodePort.PortGUID);
+                    texts.Add(item.name);
                     foreach (LanguageType languageType in (LanguageType[])Enum.GetValues(typeof(LanguageType)))
                     {
                         string tmp = nodePort
@@ -55,8 +59,8 @@ public class SaveCSV
                         
                         texts.Add($"\"{tmp}\"");
                     }
+                    AppendToFile(texts);
                 }
-                AppendToFile(texts);
             }
         }
     }
