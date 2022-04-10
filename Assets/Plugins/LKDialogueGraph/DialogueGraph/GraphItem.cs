@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using LaniakeaCode.Events;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 
 namespace LaniakeaCode.GraphSystem
@@ -11,8 +9,6 @@ namespace LaniakeaCode.GraphSystem
     /// GraphItem Stores The Node Connections and Datas
     /// </summary>
     /// Put In Here The References To The Type Of GraphNode
-    /// 
-
     public abstract class GraphItem : ScriptableObject
     {
         public List<NodeLinkData> nodeLinks = new List<NodeLinkData>();
@@ -73,7 +69,6 @@ namespace LaniakeaCode.GraphSystem
         public T LanguageGenericType;
     }
 
-
     /// <summary>
     /// EndNodeData Is An Enum Container
     /// </summary>
@@ -108,7 +103,6 @@ namespace LaniakeaCode.GraphSystem
         public string PortGUID;
         public string InputGuid;
         public string OutputGuid;
-        public Port MyPort;
         public TextField choicePortName_Field;
         public List<LanguageGeneric<string>> ChoiceText_List = new List<LanguageGeneric<string>>();
     }
@@ -117,10 +111,10 @@ namespace LaniakeaCode.GraphSystem
     public class DialogueNodeData : NodeData
     {
         public List<DialogueNodePort> dialogueNodePorts;
-        public Sprite sprite;
+        public Sprite SpeakerImage;
         public SimplSwitchType switchType;
         public List<LanguageGeneric<string>> textBox_languages;
         public List<LanguageGeneric<AudioClip>> audioClips_List;
-        public string Name;
+        public string CharacterName;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using System.IO;
 using System.Linq;
 
@@ -28,6 +29,20 @@ namespace LaniakeaCode.Utilities
                 }
             }
             return tmp;
+        }
+
+
+        public static List<GraphSystem.GraphTree> FindAllGraphs()
+        {
+            string[] guids = AssetDatabase.FindAssets("t: GraphTree");
+            GraphSystem.GraphTree[] graphTrees = new GraphSystem.GraphTree[guids.Length];
+
+            for(int i = 0; i < guids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                graphTrees[i] = AssetDatabase.LoadAssetAtPath<GraphSystem.GraphTree>(path);
+            }
+            return graphTrees.ToList();
         }
     }
 }

@@ -1,6 +1,4 @@
 using System.Linq;
-using System.Collections;
-
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.Experimental.GraphView;
@@ -21,12 +19,19 @@ namespace LaniakeaCode.GraphSystem
             graphView = _graphView;
         }
 
-        //Making a link between Property and Graph View Reference
+        //Making a link between to Graph View Reference
         private List<Edge> edges => graphView.edges.ToList();
-        private List<BaseNode> nodes => graphView.nodes.ToList()
+        private List<BaseNode> nodes => graphView
+            .nodes
+            .ToList()
             .Where(node => node is BaseNode)
-            .Cast<BaseNode>().ToList();
+            .Cast<BaseNode>()
+            .ToList();
 
+        /// <summary>
+        /// Saves Edges, Nodes, then sets dirty the asset and Saves it
+        /// </summary>
+        /// <param name="_graphTree"></param>
         public void Save(GraphTree _graphTree)
         {
             SaveEdges(_graphTree);
@@ -35,6 +40,11 @@ namespace LaniakeaCode.GraphSystem
             EditorUtility.SetDirty(_graphTree);
             AssetDatabase.SaveAssets();
         }
+
+        /// <summary>
+        /// Clears the current tree, then Generates the nodes and connects them
+        /// </summary>
+        /// <param name="_graphTree"></param>
         public void Load(GraphTree _graphTree)
         {
             ClearGraph();
@@ -44,21 +54,28 @@ namespace LaniakeaCode.GraphSystem
         }
 
         #region Save
-        // Saving The Edges via clearing the list of nodes
-        // Taking all the edges of the graph in which we have an input
-        // For each of them create two references nodes
+
+        /// <summary>
+        /// Saving The Edges via clearing previous list of edges
+        /// Taking all the edges of the graph in which we have a connection
+        /// For each of them create two references nodes
+        /// </summary>
+        /// <param name="_graphTree"></param>
         private void SaveEdges(GraphTree _graphTree)
         {
+            //Clearing the list of previous links on the asset
             _graphTree
                 .nodeLinks
                 .Clear();
 
+            //Enlisting all the edges actually connected to one other
             Edge[] connectedEdges = edges
                 .Where(edge => edge
                     .input
                     .node != null)
                     .ToArray();
 
+            //Cycling the Edges to get the connected ones, both from in and out
             for (int i = 0; i < connectedEdges.Count(); i++)
             {
                 //Two Methods possible To take the Connected Edges
@@ -70,6 +87,7 @@ namespace LaniakeaCode.GraphSystem
                                                 .input
                                                 .node as BaseNode;
 
+                //Readding the links to the edges list in the appropriate container
                 _graphTree.nodeLinks.Add(new NodeLinkData
                 {
                     baseNodeGUID = outputNode.NodeGUID,
@@ -78,6 +96,11 @@ namespace LaniakeaCode.GraphSystem
             }
         }
 
+        /// <summary>
+        /// Clears the previous nodes in the assets
+        /// Saves the temporary ones switching on their type
+        /// </summary>
+        /// <param name="_graphTree"></param>
         private void SaveNodes(GraphTree _graphTree)
         {
             //Clearing All the Lists of Nodes in the Tree
@@ -129,43 +152,50 @@ namespace LaniakeaCode.GraphSystem
             });
         }
 
-        private DialogueNodeData SaveNodeData(DialogueNode _graphNode)
+        /// <summary>
+        /// Sets the datas in the node to be saved
+        /// </summary>
+        /// <param name="_node"></param>
+        /// <returns>A Dialogue Node Data</returns>
+        private DialogueNodeData SaveNodeData(DialogueNode _node)
         {
             //Setting all the DataContainer Elements to the one passed trough the view
             DialogueNodeData graphNodeData = new DialogueNodeData
             {
-                nodeGUID = _graphNode
+                nodeGUID = _node
                 .NodeGUID,
 
-                position = _graphNode
+                position = _node
                 .GetPosition()
                 .position,
 
-                textBox_languages = _graphNode
+                textBox_languages = _node
                 .DialogueBoxTexts,
 
-                Name = _graphNode
-                .NodeTitle,
+                CharacterName = _node
+                .CharacterName,
 
-                sprite = _graphNode
+                SpeakerImage = _node
                 .SpeakerImage,
 
-                switchType = _graphNode
+                switchType = _node
                 .SimpleSwitch,
 
-                audioClips_List = _graphNode
+                audioClips_List = _node
                 .AudioClips,
 
-                dialogueNodePorts = new List<DialogueNodePort>(_graphNode.DialogueNodePorts)
+                dialogueNodePorts = new List<DialogueNodePort>(_node.DialogueNodePorts)
             };
-
+            
+            //Cycling through Ports to save the edges 
             foreach (DialogueNodePort nodePort in graphNodeData.dialogueNodePorts)
             {
                 nodePort.OutputGuid = string.Empty;
                 nodePort.InputGuid = string.Empty;
+                //Cycling through Edges to save the reference to the input and output one
                 foreach (Edge edge in edges)
                 {
-                    if (edge.output == nodePort.MyPort)
+                    if (edge.output.portName == nodePort.PortGUID)
                     {
                         nodePort
                             .OutputGuid = (edge.output.node as BaseNode).NodeGUID;
@@ -177,6 +207,11 @@ namespace LaniakeaCode.GraphSystem
             return graphNodeData;
         }
 
+        /// <summary>
+        /// Sets the datas in the node to be saved
+        /// </summary>
+        /// <param name="_node"></param>
+        /// <returns>A Start Node Data</returns>
         private StartNodeData SaveNodeData(StartNode _node)
         {
             StartNodeData nodeData = new StartNodeData()
@@ -186,6 +221,12 @@ namespace LaniakeaCode.GraphSystem
             };
             return nodeData;
         }
+
+        /// <summary>
+        /// Sets the datas in the node to be saved
+        /// </summary>
+        /// <param name="_node"></param>
+        /// <returns>An End Node Data</returns>
         private EndNodeData SaveNodeData(EndNode _node)
         {
             EndNodeData nodeData = new EndNodeData()
@@ -196,6 +237,11 @@ namespace LaniakeaCode.GraphSystem
             };
             return nodeData;
         }
+        /// <summary>
+        /// Sets the datas in the node to be saved
+        /// </summary>
+        /// <param name="_node"></param>
+        /// <returns>An Event Node Data</returns>
         private GraphEventNodeData SaveNodeData(GraphEventNode _node)
         {
             GraphEventNodeData nodeData = new GraphEventNodeData()
@@ -216,6 +262,10 @@ namespace LaniakeaCode.GraphSystem
         #endregion
 
         #region Load
+
+        /// <summary>
+        /// Clears all the nodes on screen
+        /// </summary>
         private void ClearGraph()
         {
             edges.ForEach(edge => graphView.RemoveElement(edge));
@@ -226,6 +276,10 @@ namespace LaniakeaCode.GraphSystem
             }
         }
 
+        /// <summary>
+        /// Generate the nodes according to their type, cycling on the asset's enlisted nodes 
+        /// </summary>
+        /// <param name="_graphTree"></param>
         public void GenerateNodes(GraphTree _graphTree)
         {
             //StartNode
@@ -279,21 +333,24 @@ namespace LaniakeaCode.GraphSystem
             //Graph node
             foreach (DialogueNodeData nodeData in _graphTree.dialogueNodeDatas)
             {
+                //Instantiating a temporary Node
                 DialogueNode tempNode = graphView.CreateDialogueNode(nodeData.position);
 
+                //Getting the Values of the Datas in the node
                 tempNode
                     .NodeGUID = nodeData.nodeGUID;
                 tempNode
-                    .NodeTitle = nodeData.Name;
+                    .CharacterName = nodeData.CharacterName;
                 tempNode
                     .DialogueBoxTexts = nodeData.textBox_languages;
                 tempNode
-                    .SpeakerImage = nodeData.sprite;
+                    .SpeakerImage = nodeData.SpeakerImage;
                 tempNode
                     .AudioClips = nodeData.audioClips_List;
                 tempNode
                     .SimpleSwitch = nodeData.switchType;
 
+                //Cycling on the Text Boxes and setting the appropriate one to the right language box
                 foreach(LanguageGeneric<string> languageGeneric in nodeData.textBox_languages)
                 {
                     tempNode
@@ -304,6 +361,8 @@ namespace LaniakeaCode.GraphSystem
                         ).LanguageGenericType = languageGeneric
                         .LanguageGenericType;
                 }
+
+                //Cycling on the AudioClips and setting the appropriate one to the right language box
                 foreach (LanguageGeneric<AudioClip> languageGeneric in nodeData.audioClips_List)
                 {
                     tempNode
@@ -315,21 +374,30 @@ namespace LaniakeaCode.GraphSystem
                         .LanguageGenericType;
                 }
 
+                //Cycling on Choices
                 foreach (DialogueNodePort nodePort in nodeData.dialogueNodePorts)
                 {
                     tempNode
                         .AddChoicePort(tempNode, nodePort);
                 }
 
+                //Loading the values on the field
                 tempNode
                     .LoadValueIntoField();
 
+                //Readding the node on the view
                 graphView
                     .AddElement(tempNode);
             }
         }
+
+        /// <summary>
+        /// Reconnects the nodes, cycling on their Node Datas and finding the relative ports to be connected to
+        /// </summary>
+        /// <param name="_graphTree"></param>
         public void ConnectNodes(GraphTree _graphTree)
         {
+            //Cycling on connections and linking them
             for (int i = 0; i < nodes.Count; i++)
             {
                 List<NodeLinkData> connections = _graphTree
@@ -348,7 +416,9 @@ namespace LaniakeaCode.GraphSystem
 
                     if ((nodes[i] is DialogueNode) == false)
                     {
-                        LinkAppropriateNodes(nodes[i].outputContainer[j].Q<Port>(), (Port)targetNode.inputContainer[0]);
+                        LinkAppropriateNodes(nodes[i]
+                            .outputContainer[j]
+                            .Q<Port>(), (Port)targetNode.inputContainer[0]);
                     }
                 }
             }
@@ -362,18 +432,34 @@ namespace LaniakeaCode.GraphSystem
             {
                 foreach (DialogueNodePort nodePort in graphNode.DialogueNodePorts)
                 {
+                    //Check if port has connection
                     if (nodePort.InputGuid != string.Empty)
                     {
                         BaseNode targetNode = nodes
                             .First(Node => Node
                             .NodeGUID == nodePort.InputGuid);
 
-                        LinkAppropriateNodes(nodePort.MyPort, (Port)targetNode.inputContainer[0]);
+                        //Using a Null Port to set it to a found valid one
+                        Port tempPort = null;
+                        for(int i= 0; i<graphNode.outputContainer.childCount; i++)
+                        {
+                            if(graphNode.outputContainer[i].Q<Port>().portName == nodePort.PortGUID)
+                            {
+                                tempPort = graphNode.outputContainer[i].Q<Port>();
+                            }
+                        }
+
+                        LinkAppropriateNodes(tempPort, (Port)targetNode.inputContainer[0]);
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Method to link outputs to inputs
+        /// </summary>
+        /// <param name="_outputPort"></param>
+        /// <param name="_inputPort"></param>
         private void LinkAppropriateNodes(Port _outputPort, Port _inputPort)
         {
             Edge tempEdge = new Edge()
@@ -385,6 +471,7 @@ namespace LaniakeaCode.GraphSystem
             tempEdge.output.Connect(tempEdge);
             graphView.Add(tempEdge);
         }
+
         #endregion
     }
 }

@@ -46,5 +46,10 @@ namespace LaniakeaCode.GraphSystem
         {
 
         }
+
+        public virtual void ReloadLanguage()
+        {
+
+        }
     }
 }

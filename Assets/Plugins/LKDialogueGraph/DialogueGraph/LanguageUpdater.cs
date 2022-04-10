@@ -9,7 +9,7 @@ public class LanguageUpdater
 {
     public void UpdateLanguage()
     {
-        List<GraphTree> graphTrees = GenericHelper.FindAllObjectsFromResources<GraphTree>();
+        List<GraphTree> graphTrees = GenericHelper.FindAllGraphs();
         foreach(GraphTree graph in graphTrees)
         {
             foreach(DialogueNodeData dialogueNodeData in graph.dialogueNodeDatas)

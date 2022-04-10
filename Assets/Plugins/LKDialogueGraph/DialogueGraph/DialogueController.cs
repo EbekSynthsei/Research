@@ -72,7 +72,7 @@ namespace LaniakeaCode.Utilities
             }
             uIController
                 .SetText(_nodeData
-                .Name, _nodeData
+                .CharacterName, _nodeData
                 .textBox_languages
                 .Find(text => text
                 .LanguageType == LanguageController
@@ -81,7 +81,7 @@ namespace LaniakeaCode.Utilities
                 ).LanguageGenericType);
 
             uIController
-                .SetImage(_nodeData.sprite, _nodeData.switchType);
+                .SetImage(_nodeData.SpeakerImage, _nodeData.switchType);
 
 
             audioSource

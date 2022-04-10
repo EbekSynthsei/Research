@@ -20,7 +20,7 @@ public class LoadCSV
 
         List<string> headers = result[0];
 
-        List<GraphTree> graphTrees = GenericHelper.FindAllObjectsFromResources<GraphTree>();
+        List<GraphTree> graphTrees = GenericHelper.FindAllGraphs();
 
         foreach(GraphTree tree in graphTrees)
         {

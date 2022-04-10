@@ -19,18 +19,37 @@ namespace LaniakeaCode.GraphSystem
     /// 
     public class GraphEditorWindow : EditorWindow
     {
+        #region Private
+        //Label For the Graph
         private Label graphTreeName;
-        public GraphTree currentGraphTree { get; set; }
+
+        //Actual View
         private GraphTreeView graphTreeView;
 
+        //Reference To SavenLoad Utility
         private GraphSaveUtility saveUtility;
-
-        private ToolbarMenu toolbarLanguage;
         private ToolbarButton saveButton;
         private ToolbarButton loadButton;
 
-        private LanguageType languageType = LanguageType.English;
-        public LanguageType LanguageType { get => languageType; set => languageType = value; }
+        //Dropdown for the Language
+        private ToolbarMenu languageToolbar;
+
+        //Language Default Init
+        private LanguageType selectedLanguage = LanguageType.English;
+
+        //Style Sheet Name Reference
+        private string styleSheetName = "Graph Tree";
+        #endregion
+
+        //Selected Graph
+        public GraphTree currentGraphTree { get; set; }
+
+        /// <summary>
+        /// Current Language in the Editor Window
+        /// </summary>
+        public LanguageType SelectedLanguage { get => selectedLanguage; set => selectedLanguage = value; }
+        
+
         private void OnEnable()
         {
             GenerateGraphTreeView();
@@ -57,19 +76,17 @@ namespace LaniakeaCode.GraphSystem
             if (item is GraphTree)
             {
                 var window = (GraphEditorWindow)GetWindow(typeof(GraphEditorWindow));
-                window.titleContent = new UnityEngine.GUIContent("Graph Editor");
+                window.titleContent = new GUIContent("Graph Editor");
                 //Reading the object as a Graph Tree
                 window.currentGraphTree = item as GraphTree;
                 //Setting This Window Minimum Size
-                window.minSize = new UnityEngine.Vector2(640, 360);
+                window.minSize = new Vector2(640, 360);
                 window.Load();
                 return true;
             }
+            //Something Failed
             return false;
         }
-
-
-
 
         /// <summary>
         /// Generate a Graph Tree View via the Unity Graph Experimental Class
@@ -84,7 +101,6 @@ namespace LaniakeaCode.GraphSystem
             saveUtility = new GraphSaveUtility(graphTreeView);
         }
 
-
         /// <summary>
         /// Generate Toolbar Object to be Attached To This Window
         /// </summary>
@@ -94,7 +110,7 @@ namespace LaniakeaCode.GraphSystem
             //Caching a new Toolbar
             var toolbar = new Toolbar();
             //Getting The Style Sheet
-            StyleSheet styleSheet = Resources.Load<StyleSheet>("Graph Tree");
+            StyleSheet styleSheet = Resources.Load<StyleSheet>(styleSheetName);
             rootVisualElement.styleSheets.Add(styleSheet);
 
             //Generating ToolBar Elements
@@ -108,27 +124,30 @@ namespace LaniakeaCode.GraphSystem
             saveButton.AddToClassList("saveButton");
             //Load
             loadButton = new ToolbarButton(() => { Load(); }) { text = "Load" };
+            loadButton.AddToClassList("loadButton");
 
             //Language
-            toolbarLanguage = new ToolbarMenu();
-            toolbarLanguage.AddToClassList("toolbarLanguage");
+            languageToolbar = new ToolbarMenu();
+            languageToolbar.AddToClassList("toolbarLanguage");
 
             //Caching The Language Enums As An Array
             foreach (LanguageType language in (LanguageType[])Enum.GetValues(typeof(LanguageType)))
             {
                 //Adding The Action On The Type Selected
-                toolbarLanguage.menu.AppendAction(language.ToString(), new Action<DropdownMenuAction>(x => Language(language, toolbarLanguage)));
+                languageToolbar
+                    .menu
+                    .AppendAction(language.ToString(), new Action<DropdownMenuAction>(x => SelectLanguageFromDropDown(language)));
             }
+
             //Adding Elements To The Toolbar
             toolbar.Add(graphTreeName);
-            toolbar.Add(toolbarLanguage);
+            toolbar.Add(languageToolbar);
             toolbar.Add(saveButton);
             toolbar.Add(loadButton);
 
             //Adding the Toolbar to the Window
             rootVisualElement.Add(toolbar);
         }
-
 
         /// <summary>
         /// Load The Graph Tree
@@ -139,11 +158,10 @@ namespace LaniakeaCode.GraphSystem
             if (currentGraphTree != null)
             {
                 graphTreeName.text = "Name:   " + currentGraphTree.name;
-                Language(LanguageType.English, toolbarLanguage);
+                SelectLanguageFromDropDown(LanguageType.English);
                 saveUtility.Load(currentGraphTree);
             }
         }
-
 
         /// <summary>
         /// Save The Graph Tree
@@ -157,22 +175,20 @@ namespace LaniakeaCode.GraphSystem
             }
         }
 
-
-
         /// <summary>
         /// Change The Language Between Avaialable
         /// </summary>
         /// 
-        private void Language(LanguageType _language, ToolbarMenu _toolbarMenu)
+        private void SelectLanguageFromDropDown(LanguageType language)
         {
-            toolbarLanguage
-                .text = "Language:   " + _language
+            languageToolbar
+                .text = "Language:   " + language
                 .ToString();
 
-            languageType = _language;
+            selectedLanguage = language;
 
             graphTreeView
-                .LanguageReload();
+                .ReloadLanguage();
         }
     }
 }

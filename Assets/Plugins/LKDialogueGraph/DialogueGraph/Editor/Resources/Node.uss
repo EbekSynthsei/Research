@@ -13,6 +13,7 @@ margin-left: 16px;
 margin-right: 4px;
 padding-right: 4px;
 }
+
 .node #settings Label{
 win-width: 80px;
 }
@@ -22,4 +23,12 @@ margin: 5;
 
 .node.collapsed #settings{
 display:none;
+}
+.speakerPreview{
+	height : 200px;
+	width : 200px;
+	margin : auto;
+}
+.PortName{
+	display.none;
 }

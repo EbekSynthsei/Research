@@ -13,9 +13,10 @@ public class SaveCSV
     private string csvSeparator = ",";
     private List<string> csvHeader;
     private string idName = "Guid_ID";
+    private string graphName = "Graph Name";
     public void Save()
     {
-        List<GraphTree> graphItems = GenericHelper.FindAllObjectsFromResources<GraphTree>();
+        List<GraphTree> graphItems = GenericHelper.FindAllGraphs();
         
         CreateFile();
         foreach (GraphTree item in graphItems)
@@ -26,6 +27,7 @@ public class SaveCSV
 
                 List<string> texts = new List<string>();
                 texts.Add(dialogueNodeData.nodeGUID);
+                texts.Add(item.name);
                 foreach (LanguageType languageType in (LanguageType[])Enum.GetValues(typeof(LanguageType)))
                 {
                     string tmp = dialogueNodeData
@@ -95,6 +97,8 @@ public class SaveCSV
     {
         List<string> headerText = new List<string>();
         headerText.Add(idName);
+        headerText.Add(graphName);
+
         foreach (LanguageType language in (LanguageType[])Enum.GetValues(typeof(LanguageType)))
         {
             headerText.Add(language.ToString());

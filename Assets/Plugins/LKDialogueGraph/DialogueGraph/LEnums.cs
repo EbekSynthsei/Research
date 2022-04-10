@@ -20,6 +20,7 @@ using UnityEngine;
         English,
         Italian
     }
+
     public enum EndNodeType
     {
         End,

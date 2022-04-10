@@ -12,14 +12,14 @@ namespace LaniakeaCode.GraphSystem
 {
     public class DialogueNode : BaseNode
     {
-        private string nodeTitle;
+        private string characterName;
         private List<LanguageGeneric<string>> dialogueBoxTexts = new List<LanguageGeneric<string>>();
         private List<LanguageGeneric<AudioClip>> audioClips = new List<LanguageGeneric<AudioClip>>();
 
         private List<DialogueNodePort> dialogueNodePorts = new List<DialogueNodePort>();
 
         private Sprite speakerImage;
-        public string NodeTitle { get => nodeTitle; set => nodeTitle = value; }
+        public string CharacterName { get => characterName; set => characterName = value; }
         public List<LanguageGeneric<string>> DialogueBoxTexts { get => dialogueBoxTexts; set => dialogueBoxTexts = value; }
         public List<LanguageGeneric<AudioClip>> AudioClips { get => audioClips; set => audioClips = value; }
         public Sprite SpeakerImage { get => speakerImage; set => speakerImage = value; }
@@ -28,12 +28,12 @@ namespace LaniakeaCode.GraphSystem
 
         private SimplSwitchType simpleSwitch;
 
-        private TextField nodeTitle_Field;
+        private TextField characterName_Field;
         private TextField dialogueBoxText_Field;
-        private ObjectField controlImage_Field;
+        private ObjectField speakerImage_Field;
         private ObjectField audioClips_Field;
         private EnumField simpleSwitch_Field;
-
+        private Image preview;
         public DialogueNode()
         {
 
@@ -66,17 +66,17 @@ namespace LaniakeaCode.GraphSystem
             }
 
             //Setting the Text Field For The Name
-            nodeTitle_Field = new TextField("NodeTitle");
-            nodeTitle_Field
+            characterName_Field = new TextField("NodeTitle");
+            characterName_Field
                 .RegisterValueChangedCallback(value =>
-                nodeTitle = value
+                characterName = value
                 .newValue
                 );
-            nodeTitle_Field
-                .SetValueWithoutNotify(NodeTitle);
+            characterName_Field
+                .SetValueWithoutNotify(CharacterName);
 
             mainContainer
-                .Add(nodeTitle_Field);
+                .Add(characterName_Field);
 
             //Setting The Field For The Main Text Box
             dialogueBoxText_Field = new TextField("");
@@ -84,7 +84,7 @@ namespace LaniakeaCode.GraphSystem
                 dialogueBoxTexts
                 .Find(text => text
                 .LanguageType == editorWindow
-                .LanguageType
+                .SelectedLanguage
                 ).LanguageGenericType = value
                 .newValue;
             });
@@ -92,29 +92,33 @@ namespace LaniakeaCode.GraphSystem
                 .SetValueWithoutNotify(dialogueBoxTexts
                 .Find(text => text
                 .LanguageType == editorWindow
-                .LanguageType
+                .SelectedLanguage
                 ).LanguageGenericType);
 
 
 
-            //Setting The Field For The Control Image
+            //Setting The Field For The Speaker Image
             //
-            controlImage_Field = new ObjectField
+            speakerImage_Field = new ObjectField
             {
                 objectType = typeof(Sprite),
                 allowSceneObjects = false,
                 value = speakerImage
             };
+            preview = new Image();
+            preview.AddToClassList("speakerPreview");
 
-            controlImage_Field
+            speakerImage_Field
                 .RegisterValueChangedCallback(value =>
                 {
-                    speakerImage = value.newValue as Sprite;
+                    Sprite tmp = value.newValue as Sprite;
+                    speakerImage = tmp;
+                    preview.image = (tmp != null ? tmp.texture : null);
                 });
-            controlImage_Field
+            speakerImage_Field
                 .SetValueWithoutNotify(speakerImage);
 
-            mainContainer.Add(controlImage_Field);
+            mainContainer.Add(speakerImage_Field);
 
             //Setting The Field For The Enum Field
             //
@@ -144,7 +148,7 @@ namespace LaniakeaCode.GraphSystem
                 value = audioClips
                 .Find(audioClip => audioClip
                 .LanguageType == editorWindow
-                .LanguageType
+                .SelectedLanguage
                 ).LanguageGenericType
             };
             audioClips_Field
@@ -153,7 +157,7 @@ namespace LaniakeaCode.GraphSystem
                     audioClips
                       .Find(audioClip => audioClip
                       .LanguageType == editorWindow
-                      .LanguageType)
+                      .SelectedLanguage)
                       .LanguageGenericType = value
                       .newValue as AudioClip;
                 });
@@ -161,7 +165,7 @@ namespace LaniakeaCode.GraphSystem
                 .SetValueWithoutNotify(audioClips
                 .Find(audioClip => audioClip
                 .LanguageType == editorWindow
-                .LanguageType)
+                .SelectedLanguage)
                 .LanguageGenericType);
 
             mainContainer
@@ -179,8 +183,34 @@ namespace LaniakeaCode.GraphSystem
             titleButtonContainer
                 .Add(addChoiceButton);
         }
+        public override void LoadValueIntoField()
+        {
+            audioClips_Field
+                .SetValueWithoutNotify(audioClips
+                .Find(language => language
+                .LanguageType == editorWindow
+                .SelectedLanguage)
+                .LanguageGenericType);
+            characterName_Field
+                .SetValueWithoutNotify(characterName);
+            dialogueBoxText_Field
+                .SetValueWithoutNotify(dialogueBoxTexts
+                .Find(language => language
+                .LanguageType == editorWindow
+                .SelectedLanguage)
+                .LanguageGenericType);
+            speakerImage_Field
+                .SetValueWithoutNotify(speakerImage);
+            simpleSwitch_Field
+                .SetValueWithoutNotify(simpleSwitch);
+                
+            if(speakerImage != null)
+            {
+                preview.image = ((Sprite)speakerImage_Field.value).texture;
+            }
+        }
 
-        public void ReloadLanguage()
+        public override void ReloadLanguage()
         {
             dialogueBoxText_Field
                 .RegisterValueChangedCallback(value =>
@@ -188,7 +218,7 @@ namespace LaniakeaCode.GraphSystem
                     dialogueBoxTexts
                         .Find(text => text
                         .LanguageType == editorWindow
-                        .LanguageType).LanguageGenericType = value
+                        .SelectedLanguage).LanguageGenericType = value
                     .newValue;
                 });
             dialogueBoxText_Field
@@ -196,7 +226,7 @@ namespace LaniakeaCode.GraphSystem
                 dialogueBoxTexts
                 .Find(text => text
                 .LanguageType == editorWindow
-                .LanguageType)
+                .SelectedLanguage)
                 .LanguageGenericType);
 
             audioClips_Field
@@ -204,14 +234,14 @@ namespace LaniakeaCode.GraphSystem
                 audioClips
                 .Find(audio => audio
                 .LanguageType == editorWindow
-                .LanguageType)
+                .SelectedLanguage)
                 .LanguageGenericType = value
                 .newValue as AudioClip);
             audioClips_Field
                 .SetValueWithoutNotify(audioClips
                 .Find(audio => audio
                 .LanguageType == editorWindow
-                .LanguageType
+                .SelectedLanguage
                 ).LanguageGenericType);
 
             foreach(DialogueNodePort uiPort in DialogueNodePorts)
@@ -224,7 +254,7 @@ namespace LaniakeaCode.GraphSystem
                         .ChoiceText_List
                         .Find(language => language
                         .LanguageType == editorWindow
-                        .LanguageType
+                        .SelectedLanguage
                         ).LanguageGenericType = value
                         .newValue;
                     });
@@ -235,7 +265,7 @@ namespace LaniakeaCode.GraphSystem
                     .ChoiceText_List
                     .Find(language => language
                     .LanguageType == editorWindow
-                    .LanguageType
+                    .SelectedLanguage
                     ).LanguageGenericType);
             }
         }
@@ -299,7 +329,7 @@ namespace LaniakeaCode.GraphSystem
                     .ChoiceText_List
                     .Find(language => language
                     .LanguageType == editorWindow
-                    .LanguageType
+                    .SelectedLanguage
                     ).LanguageGenericType = value
                     .newValue;
                 });
@@ -312,7 +342,7 @@ namespace LaniakeaCode.GraphSystem
                 .Find(language =>
                 language
                 .LanguageType == editorWindow
-                .LanguageType
+                .SelectedLanguage
                 ).LanguageGenericType);
 
             port
@@ -329,10 +359,16 @@ namespace LaniakeaCode.GraphSystem
                 .contentContainer
                 .Add(deleteButton);
 
-            dialogueNodePort
-                .MyPort = port;
+            //Using the Guid as a Name and Hiding via uss
             port
-                .portName = "";
+                .portName = dialogueNodePort
+                .PortGUID;
+
+            Label portNameLabel = port
+                .contentContainer
+                .Q<Label>("type");
+            portNameLabel
+                .AddToClassList("PortName");
 
             DialogueNodePorts
                 .Add(dialogueNodePort);
@@ -341,6 +377,7 @@ namespace LaniakeaCode.GraphSystem
                 .outputContainer
                 .Add(port);
 
+            //Refresh
             _baseNode
                 .RefreshPorts();
             _baseNode
@@ -353,7 +390,8 @@ namespace LaniakeaCode.GraphSystem
         {
             DialogueNodePort tmp = DialogueNodePorts
                 .Find(port => port
-                .MyPort == _port);
+                .PortGUID == _port
+                .portName);
 
             DialogueNodePorts
             .Remove(tmp);

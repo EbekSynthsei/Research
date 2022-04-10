@@ -1,29 +1,43 @@
-using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.UIElements;
-
-using UnityEditor;
-using UnityEditor.Callbacks;
-using UnityEditor.UIElements;
 using UnityEditor.Experimental.GraphView;
+
 namespace LaniakeaCode.GraphSystem
 {
+    /// <summary>
+    /// View Manager that connects what is executed on the window.
+    /// It uses the Graph View from Unity, so could be broke
+    /// </summary>
     public class GraphTreeView : GraphView
     {
+        //Style Sheet Name Reference
+        private string styleSheetName = "Graph Tree";
+
+        //Actual Editor Window
         private GraphEditorWindow editorWindow;
+
+        //Drop Down Window to create Nodes
         private NodeSearchWindow searchWindow;
+
+        /// <summary>
+        /// Constructor Adding Funcionality To The Window Passed on
+        /// Functionality includes:
+        /// Dragging, Selection Dragging, Node Selection
+        /// Zooming
+        /// A Grid Reference for visual Alignment
+        /// </summary>
+        /// <param name="_editorWindow"></param>
         public GraphTreeView(GraphEditorWindow _editorWindow)
         {
             editorWindow = _editorWindow;
             //Setting The Style
-            styleSheets.Add(Resources.Load<StyleSheet>("Graph Tree"));
+            styleSheets.Add(Resources.Load<StyleSheet>(styleSheetName));
             SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 
             //Adding Elements Manipulators
+            //Check Unity References if doesn't work cause Experimental Packages
 
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new SelectionDragger());
@@ -32,69 +46,75 @@ namespace LaniakeaCode.GraphSystem
 
             //Adding A Grid 
             var grid = new GridBackground();
+
             //Inserting Through Visual Element Base Method
             Insert(0, grid);
             grid.StretchToParentSize();
 
             AddSearchWindow();
         }
+
+        /// <summary>
+        /// Adding a dropdown window to enlist and instantiate nodes
+        /// </summary>
         private void AddSearchWindow()
         {
             searchWindow = ScriptableObject
                 .CreateInstance<NodeSearchWindow>();
+
             searchWindow
                 .Init(editorWindow, this);
 
-            //Action Request On The Mouse Position Of A New SearchWindow
-            //
+            //Action Request On The Mouse Position Of A New Search Window 
             nodeCreationRequest = context => SearchWindow
             .Open(new SearchWindowContext(context.screenMousePosition), searchWindow);
         }
 
-        public void LanguageReload()
+        /// <summary>
+        /// Calls a Reload on every Node to Update the Selected Language
+        /// </summary>
+        public void ReloadLanguage()
         {
-            List<DialogueNode> graphNodes = nodes
+            List<BaseNode> allNodes = nodes
                 .ToList()
-                .Where(node => node is DialogueNode)
-                .Cast<DialogueNode>()
+                .Where(node => node is BaseNode)
+                .Cast<BaseNode>()
                 .ToList();
 
-            foreach (DialogueNode graphNode in graphNodes)
+            foreach (BaseNode node in allNodes)
             {
-                graphNode
+                node
                     .ReloadLanguage();
             }
         }
 
-        /// <summary>
-        /// Methods Creating the Nodes
-        /// 
-        /// </summary>
-        /// <param name="_pos"></param>
-        /// <returns></returns>
-        /// 
         #region CreateNode
 
-        public StartNode CreateStartNode(Vector2 _pos)
+        public StartNode CreateStartNode(Vector2 position)
         {
-            StartNode tmp = new StartNode(_pos, editorWindow, this);
-            return tmp;
+            return new StartNode(position, editorWindow, this);
         }
-        public DialogueNode CreateDialogueNode(Vector2 _pos)
+        public DialogueNode CreateDialogueNode(Vector2 position)
         {
-            DialogueNode tmp = new DialogueNode(_pos, editorWindow, this);
-            return tmp;
+            return new DialogueNode(position, editorWindow, this);   
         }
-        public GraphEventNode CreateGraphEventNode(Vector2 _pos)
+        public GraphEventNode CreateGraphEventNode(Vector2 position)
         {
-            GraphEventNode tmp = new GraphEventNode(_pos, editorWindow, this);
-            return tmp;
+            return new GraphEventNode(position, editorWindow, this);
         }
-        public EndNode CreateEndNode(Vector2 _pos)
+        public EndNode CreateEndNode(Vector2 position)
         {
-            EndNode tmp = new EndNode(_pos, editorWindow, this);
-            return tmp;
+            return new EndNode(position, editorWindow, this);
         }
+
+        /// <summary>
+        /// Method to avoid:
+        /// Self connecting of the Node
+        /// In to In or Out to Out connections
+        /// </summary>
+        /// <param name="startPort"></param>
+        /// <param name="nodeAdapter"></param>
+        /// <returns>A list of Compatible Ports</returns>
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {
             List<Port> compatiblePorts = new List<Port>();
