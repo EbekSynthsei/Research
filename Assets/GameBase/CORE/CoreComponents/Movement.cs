@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using LaniakeaCode.Utilities;
 public class Movement : COREComponent
 {
     public Rigidbody2D Rb { get; private set; }
@@ -14,16 +14,17 @@ public class Movement : COREComponent
     public Vector2 stopOffset;
     private Vector2 workVector;
 
-    [SerializeField] public MoveStateData moveStateData;
-    [SerializeField] public JumpStateData jumpStateData;
+    
+    [SerializeField] [ExposedScriptableObject] public MoveStateData moveStateData;
+    [SerializeField] [ExposedScriptableObject] public JumpStateData jumpStateData;
                      
-    [SerializeField] public InAirStateData inAirStateData;
+    [SerializeField] [ExposedScriptableObject] public InAirStateData inAirStateData;
                      
-    [SerializeField] public LandStateData landStateData;
+    [SerializeField] [ExposedScriptableObject] public LandStateData landStateData;
                      
-    [SerializeField] public TouchingWallData touchingWallData;
+    [SerializeField] [ExposedScriptableObject] public TouchingWallData touchingWallData;
                      
-    [SerializeField] public DashStateData dashStateData;
+    [SerializeField] [ExposedScriptableObject] public DashStateData dashStateData;
     protected override void Awake()
     {
         base.Awake();

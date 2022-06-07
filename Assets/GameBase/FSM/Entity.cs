@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEditor;
+using LaniakeaCode.Utilities;
 public class Entity : MonoBehaviour
 {
     //Main Components. Consider Adding A Nav Mesh Component To Manage Movement in Easier Way for Enemies
@@ -18,6 +19,7 @@ public class Entity : MonoBehaviour
     //This Is A generic container for the data.
     [Header("Data")]
     [SerializeField]
+    [ExposedScriptableObject]
     private EntityData entityData;
 
 
