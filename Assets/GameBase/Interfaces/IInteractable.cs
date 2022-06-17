@@ -10,6 +10,8 @@ namespace LaniakeaCode.Utilities
         bool HoldInteract { get; }
         bool MultipleUse { get; }
         bool IsInteractable { get; }
+        bool AgentInArea();
         void OnInteract();
+        void SetInteractionArea();
     }
 }

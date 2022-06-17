@@ -26,7 +26,7 @@ namespace LaniakeaCode.Utilities
         {
             //LABEL
             EditorGUI.PropertyField(position, property, label, true);
-
+            
             //DRAW ARROW
             if(property.objectReferenceValue != null)
             {
@@ -43,9 +43,11 @@ namespace LaniakeaCode.Utilities
                 //DRAW OBJ PROPERTIES
                 if (!editor)
                 {
-                    Editor.CreateCachedEditor(property.objectReferenceValue, null, ref editor);
+                    
+                    Editor.CreateCachedEditor(property.objectReferenceValue, null , ref editor);
 
                 }
+                
                 editor.OnInspectorGUI();
 
                 //RESET INDENT
