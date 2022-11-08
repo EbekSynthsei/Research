@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace LaniakeaCode.Utilities
 {
@@ -17,7 +18,8 @@ namespace LaniakeaCode.Utilities
         private InteractableData interactionData;
 
         private Transform interactionPoint;
-
+        private RectTransform uiElement;
+        Cinemachine.CinemachineVirtualCamera virtualCamera;
         private float holdDuration;
         private bool holdInteract;
         private bool multipleUse;
@@ -32,7 +34,9 @@ namespace LaniakeaCode.Utilities
         void Awake()
         {
             SetInteractionArea();
+            
         }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -81,13 +85,23 @@ namespace LaniakeaCode.Utilities
         }
         public void ShowInteractionHint()
         {
+            RectTransform CanvasRect = GetComponentInChildren<RectTransform>();
+            
+            Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+            Vector2 WorldObject_ScreenPosition = new Vector2(
+            ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
+            ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
 
+            //now you can set the position of the ui element
+            uiElement.anchoredPosition = WorldObject_ScreenPosition;
+            Debug.Log(WorldObject_ScreenPosition);
         }
 #if UNITY_EDITOR
         void OnDrawGizmos()
         {
             if (interactionData != null)
             {
+                SetInteractionArea();
                 Gizmos.color = Color.magenta;
                 Gizmos.DrawWireSphere(interactionPoint.transform.position, interactionData.interactionAreaRadius);
             }

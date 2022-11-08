@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e59c5d80d3db814b999108cca52c8b7, type: 3}
+  m_Name: New Graph Tree
+  m_EditorClassIdentifier: 
+  nodeLinks:
+  - baseNodeGUID: 339ee509-efa8-448a-8eab-5d563b2c135e
+    targetNodeGUID: 938e4b57-4538-4d10-aaf3-154a92091f5a
+    outputPortName: 
+    inputPortName: 
+  startNodeDatas:
+  - nodeGUID: 339ee509-efa8-448a-8eab-5d563b2c135e
+    position: {x: 179, y: 263}
+  endNodeDatas: []
+  dialogueNodeDatas:
+  - nodeGUID: 938e4b57-4538-4d10-aaf3-154a92091f5a
+    position: {x: 395, y: 174}
+    dialogueNodePorts:
+    - PortGUID: d7d9457b-3b42-4be1-bb0a-ad921f92758e
+      InputGuid: 
+      OutputGuid: 
+      ChoiceText_List:
+      - LanguageType: 0
+        LanguageGenericType: Ciao peppe
+      - LanguageType: 1
+        LanguageGenericType: Bella
+    - PortGUID: 97cbf8dd-1c86-4044-a8f3-1f99c654ccd6
+      InputGuid: 
+      OutputGuid: 
+      ChoiceText_List:
+      - LanguageType: 0
+        LanguageGenericType: FANculo
+      - LanguageType: 1
+        LanguageGenericType: Peppe2
+    - PortGUID: 61485da0-cd2f-42a9-9546-a273e69774d1
+      InputGuid: 
+      OutputGuid: 
+      ChoiceText_List:
+      - LanguageType: 0
+        LanguageGenericType: non fare un cazzo
+      - LanguageType: 1
+        LanguageGenericType: AFASDASFASFasfsfasf
+    SpeakerImage: {fileID: 0}
+    switchType: 0
+    textBox_languages:
+    - LanguageType: 0
+      LanguageGenericType: OH FRATE BELLA
+    - LanguageType: 1
+      LanguageGenericType: asfasfWRESFDXZECZFSD
+    audioClips_List:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    CharacterName: PEppe
+  graphEventNodeDatas: []
