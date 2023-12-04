@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = ("New Search Target State Data"), menuName = ("Scriptable Data/State Data/Search Target Data"))]
+[CreateAssetMenu(fileName = ("New Search Target State Data"), menuName = ("LaniakeaTools/State Data/Search Target Data"))]
 public class SearchTargetData : ScriptableObject
 {
     [Min(0)]

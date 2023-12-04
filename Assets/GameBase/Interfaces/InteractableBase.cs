@@ -35,7 +35,6 @@ namespace LaniakeaCode.Utilities
         void Awake()
         {
             SetInteractionArea();
-
         }
 
         // Start is called before the first frame update

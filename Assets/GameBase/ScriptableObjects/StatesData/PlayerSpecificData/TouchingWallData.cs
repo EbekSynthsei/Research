@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = ("New Touching Wall State Data"), menuName = ("Scriptable Data/State Data/Touching Wall State Data"))]
+[CreateAssetMenu(fileName = ("New Touching Wall State Data"), menuName = ("LaniakeaTools/State Data/Touching Wall State Data"))]
 public class TouchingWallData : ScriptableObject
 {
     [Range(0.0f, 100.0f)]

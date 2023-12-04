@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName =("New Move State Data"), menuName =("Scriptable Data/State Data/Move Data"))]
+[CreateAssetMenu(fileName =("New Move State Data"), menuName =("LaniakeaTools/State Data/Move Data"))]
 public class MoveStateData : ScriptableObject
 {
     [Header("Entity Speed")]

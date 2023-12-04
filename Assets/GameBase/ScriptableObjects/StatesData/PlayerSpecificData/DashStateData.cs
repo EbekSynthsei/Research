@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = ("New Dash State Data"), menuName = ("Scriptable Data/State Data/Dash Data"))]
+[CreateAssetMenu(fileName = ("New Dash State Data"), menuName = ("LaniakeaTools/State Data/Dash Data"))]
 public class DashStateData : ScriptableObject
 {
     [Range(0.0f, 10.0f)]

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LaniakeaCode.Utilities
 {
-    [CreateAssetMenu(fileName = "Interactable Data", menuName = "Scriptable Data/Interactions")]
+    [CreateAssetMenu(fileName = "Interactable Data", menuName = "LaniakeaTools/Interactions")]
     public class InteractableData : ScriptableObject
     {
         [Header("Interaction")]

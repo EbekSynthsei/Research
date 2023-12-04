@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = ("New Idle State Data"), menuName = ("Scriptable Data/State Data/Idle Data"))]
+[CreateAssetMenu(fileName = ("New Idle State Data"), menuName = ("LaniakeaTools/State Data/Idle Data"))]
 public class IdleStateData : ScriptableObject
 {
     [Min(0.0f)]

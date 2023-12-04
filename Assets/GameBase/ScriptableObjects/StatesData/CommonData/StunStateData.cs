@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = ("New Stun State Data"), menuName = ("Scriptable Data/State Data/Attack/StunData"))]
+[CreateAssetMenu(fileName = ("New Stun State Data"), menuName = ("LaniakeaTools/State Data/Attack/StunData"))]
 public class StunStateData : ScriptableObject
 {
     [Header("Stun")]

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="New Aggressive Weapon Data", menuName = "Scriptable Data/Weapon Data/Aggressive Weapon")]
+[CreateAssetMenu(fileName ="New Aggressive Weapon Data", menuName = "LaniakeaTools/Weapon Data/Aggressive Weapon")]
 public class AggroWeaponData : WeaponData
 {
     [SerializeField] private WeaponAttackData[] attackDetails;

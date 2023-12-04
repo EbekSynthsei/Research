@@ -28,3 +28,9 @@ using UnityEngine;
         GoBack,
         ReturnToStart
     }
+    
+    public enum DamageType
+    {
+        None,
+        Base
+    }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = ("New Melee Attack State Data"), menuName = ("Scriptable Data/State Data/Attack/Melee Attack Data"))]
+[CreateAssetMenu(fileName = ("New Melee Attack State Data"), menuName = ("LaniakeaTools/State Data/Attack/Melee Attack Data"))]
 public class MeleeAttackData : ScriptableObject
 {
     [Min(0.2f)]

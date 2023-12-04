@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = ("New In Air State Data"), menuName = ("Scriptable Data/State Data/InAirData"))]
+[CreateAssetMenu(fileName = ("New In Air State Data"), menuName = ("LaniakeaTools/State Data/InAirData"))]
 public class InAirStateData : ScriptableObject
 {
     [Range(0.0f, 1.0f)]

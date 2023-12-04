@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = ("New Target Detected State Data"), menuName = ("Scriptable Data/State Data/TargetDetectedData"))]
+[CreateAssetMenu(fileName = ("New Target Detected State Data"), menuName = ("LaniakeaTools/State Data/TargetDetectedData"))]
 public class TargetDetectedStateData : ScriptableObject
 {
     [Header("Long Range Action")]

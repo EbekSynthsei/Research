@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = ("New Ranged Attack State Data"), menuName = ("Scriptable Data/State Data/Attack/Ranged Attack Data"))]
+[CreateAssetMenu(fileName = ("New Ranged Attack State Data"), menuName = ("LaniakeaTools/State Data/Attack/Ranged Attack Data"))]
 public class RangedAttackData : ScriptableObject
 {
     [Header("Ranged Attack Data")]

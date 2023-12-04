@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = ("New Entity Data"), menuName = ("Scriptable Data/Entity Data/Entity Data"))]
+[CreateAssetMenu(fileName = ("New Entity Data"), menuName = ("LaniakeaTools/Entity Data/Entity Data"))]
 public class EntityData : ScriptableObject
 {
     [Header("Stats")]

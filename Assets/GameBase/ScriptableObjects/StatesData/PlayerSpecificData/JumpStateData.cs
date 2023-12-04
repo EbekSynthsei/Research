@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = ("New Jump State Data"), menuName = ("Scriptable Data/State Data/Jump Data"))]
+[CreateAssetMenu(fileName = ("New Jump State Data"), menuName = ("LaniakeaTools/State Data/Jump Data"))]
 public class JumpStateData : ScriptableObject
 {
     [Header("Jump Velocity")]

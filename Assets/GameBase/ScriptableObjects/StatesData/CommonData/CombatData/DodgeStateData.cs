@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = ("New Dodge State Data"), menuName = ("Scriptable Data/State Data/Attack/Dodge Data"))]
+[CreateAssetMenu(fileName = ("New Dodge State Data"), menuName = ("LaniakeaTools/State Data/Attack/Dodge Data"))]
 public class DodgeStateData : ScriptableObject
 {
 
