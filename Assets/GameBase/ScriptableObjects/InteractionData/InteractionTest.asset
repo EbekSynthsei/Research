@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44aac2bf92c98746967fbec0ea1fd1d, type: 3}
   m_Name: InteractionTest
   m_EditorClassIdentifier: 
-  interactionName: 
+  interactionName: NOMEBELLO INTERAZIONE
   validAgents:
     serializedVersion: 2
     m_Bits: 64

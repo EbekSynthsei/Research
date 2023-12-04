@@ -11,7 +11,7 @@ public class SceneInstantiate : MonoBehaviour
 
     private void Awake()
     {
-        SceneManager.LoadSceneAsync(persistentScene.name, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("Managers", LoadSceneMode.Additive);
     }
 
     [ContextMenu("ChangeScene")]

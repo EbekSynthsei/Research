@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   maxHealth: 20
-  wallCheckDistance: 2
-  ledgeCheckDistance: 1.8
-  groundCheckRadius: 0.2
+  wallCheckDistance: 8.2
+  ledgeCheckDistance: 5
+  groundCheckRadius: 0.01
   startOffset: {x: 0, y: 0}
   stopOffset: {x: 0, y: 0}
   whatIsGround:

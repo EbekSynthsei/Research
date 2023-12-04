@@ -12,17 +12,18 @@ namespace LaniakeaCode.Utilities
     public class InteractableBase : MonoBehaviour, IInteractable
     {
         private CircleCollider2D interactionArea;
-        
+
         [Header("Interaction Settings")]
         [SerializeField]
         private InteractableData interactionData;
-
         private Transform interactionPoint;
         private RectTransform uiElement;
         Cinemachine.CinemachineVirtualCamera virtualCamera;
         private float holdDuration;
         private bool holdInteract;
         private bool multipleUse;
+        [SerializeField]
+        private bool debugEnabled;
 
         [SerializeField]
         private bool isInteractable;
@@ -34,7 +35,7 @@ namespace LaniakeaCode.Utilities
         void Awake()
         {
             SetInteractionArea();
-            
+
         }
 
         // Start is called before the first frame update
@@ -48,6 +49,8 @@ namespace LaniakeaCode.Utilities
         {
             if (AgentInArea())
             {
+                Debug.Log("In Area : " + gameObject.name);
+
                 ShowInteractionHint();
                 OnInteract();
             }
@@ -72,6 +75,10 @@ namespace LaniakeaCode.Utilities
             interactionArea = GetComponent<CircleCollider2D>();
             interactionArea.isTrigger = true;
             interactionArea.radius = interactionData.interactionAreaRadius;
+            if (debugEnabled)
+            {
+                Debug.Log("Interaction area test point :" + interactionPoint.ToString() + "radius:" + interactionArea.radius + "data:" + interactionData.ToString());
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -86,15 +93,20 @@ namespace LaniakeaCode.Utilities
         public void ShowInteractionHint()
         {
             RectTransform CanvasRect = GetComponentInChildren<RectTransform>();
-            
-            Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(transform.position);
-            Vector2 WorldObject_ScreenPosition = new Vector2(
-            ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
-            ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
+            if (debugEnabled)
+            {
+                Debug.Log("HO MOSTRATO L'HINT" + interactionData.interactionName);
+            }
+            //Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+
+
+            //Vector2 WorldObject_ScreenPosition = new Vector2(
+            //((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
+            //((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
 
             //now you can set the position of the ui element
-            uiElement.anchoredPosition = WorldObject_ScreenPosition;
-            Debug.Log(WorldObject_ScreenPosition);
+            //uiElement.anchoredPosition = WorldObject_ScreenPosition;
+
         }
 #if UNITY_EDITOR
         void OnDrawGizmos()
