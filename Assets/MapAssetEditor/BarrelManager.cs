@@ -10,23 +10,10 @@ public class BarrelManager : Singleton<BarrelManager>
 {
     public static List<Barrel> barrels = new List<Barrel>();
 
-    private void Update()
-    {
-        foreach (Barrel barrel in barrels)
-        {
-            if (barrel.interactableBases == null || barrel.interactableBases.Count == 0)
-            {
-
-            }
-            else
-            {
-                Debug.Log(barrel.name);
-            }
-        }
-    }
+    
     private void OnDrawGizmos()
     {
-        foreach(Barrel barrel in barrels)
+        foreach (Barrel barrel in barrels)
         {
             Vector3 managerPos = transform.position;
             Vector3 barrelPos = barrel.transform.position;

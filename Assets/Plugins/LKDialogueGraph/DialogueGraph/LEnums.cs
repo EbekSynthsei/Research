@@ -29,6 +29,13 @@ using UnityEngine;
         ReturnToStart
     }
     
+    public enum InteractionType
+{
+    LOG,
+    NONE,
+    INTERACT,
+    DAMAGE
+}
     public enum DamageType
     {
         None,

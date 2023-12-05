@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LaniakeaCode.Utilities;
-public class Barrel : MonoBehaviour
+
+public class Barrel : Entity
 {
     [Range(0.1f, 2.0f)]
     public float size = 1;
@@ -10,33 +11,20 @@ public class Barrel : MonoBehaviour
     public Color color = Color.red;
     MaterialPropertyBlock mpb;
     static readonly int shPropColor = Shader.PropertyToID("_Color");
-    public MaterialPropertyBlock Mpb
-    {
-
-        get
-        {
-            if (mpb == null)
-            {
-                mpb = new MaterialPropertyBlock();
-            }
-            return mpb;
-        }
-    }
     
     [SerializeField]
-    public List<InteractableBase> interactableBases;
+    public BarrelTypeData typeData;
+    
+
     
     void ApplyColor()
     {
-        SpriteRenderer rnd = GetComponent<SpriteRenderer>();
-        Mpb.SetColor(shPropColor, color);
-        rnd.SetPropertyBlock(Mpb);
+        Debug.Log("Barrel Enabled");
     }
     
-    public string Interaction = "Nuova Interazione";
     private void Awake()
     {
-        GetComponent<SpriteRenderer>().sharedMaterial.color = this.color;
+        //GetComponent<SpriteRenderer>().sharedMaterial.color = this.color;
     }
     void OnEnable()
     {
