@@ -30,6 +30,6 @@ MonoBehaviour:
   damageHopSpeed: 3
   stunResistance: 3
   stunRecoveryTime: 2
-  damageParticle: {fileID: 0}
+  damageParticle: {fileID: 791884194307863000, guid: c0583b4e855c74b8c82e7b9b5efb5ce9, type: 3}
   voidEvent: {fileID: 11400000, guid: c65ff7523eb8a5b49ab5ff28d279f5fe, type: 2}
-  interactionType: 
+  interactionType: 00000000

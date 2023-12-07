@@ -10,7 +10,13 @@ public class BarrelManager : Singleton<BarrelManager>
 {
     public static List<Barrel> barrels = new List<Barrel>();
 
-    
+    public void UpdateAllBarrelStats()
+    {
+        foreach(Barrel barrel in barrels)
+        {
+            barrel.ApplyColor();
+        }
+    }
     private void OnDrawGizmos()
     {
         foreach (Barrel barrel in barrels)

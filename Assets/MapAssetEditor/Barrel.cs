@@ -11,20 +11,26 @@ public class Barrel : Entity
     public Color color = Color.red;
     MaterialPropertyBlock mpb;
     static readonly int shPropColor = Shader.PropertyToID("_Color");
-    
+
     [SerializeField]
     public BarrelTypeData typeData;
-    
+    private BarrelState barrelState;
+    [SerializeField]
+    private BarrelStateData initState;
 
-    
-    void ApplyColor()
+    public void ApplyColor()
     {
-        Debug.Log("Barrel Enabled");
+        Debug.Log("Update All Barrel From Manager");
     }
-    
-    private void Awake()
+
+    private void Start()
     {
-        //GetComponent<SpriteRenderer>().sharedMaterial.color = this.color;
+        base.Start();
+
+        //Move
+        barrelState = new BarrelState(this, stateMachine, "Idle", initState, this);
+
+        stateMachine.Init(barrelState);
     }
     void OnEnable()
     {

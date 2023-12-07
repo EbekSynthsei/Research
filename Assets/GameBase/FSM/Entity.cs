@@ -37,6 +37,13 @@ public class Entity : MonoBehaviour
     private void Awake()
     {
         Core = GetComponentInChildren<CORE>();
+        Debug.Log("Game Object : " + name + "Core : " + Core.gameObject.name);
+    }
+    private void OnValidate()
+    {
+        
+        Debug.Log("Entity Validate : " + gameObject.name + "Data : " + entityData.ToString());
+        
     }
     public virtual void Start()
     {
