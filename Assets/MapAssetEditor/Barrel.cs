@@ -8,13 +8,12 @@ public class Barrel : Entity
     [Range(0.1f, 2.0f)]
     public float size = 1;
     public string barrelname = "New Map Object";
-    public Color color = Color.red;
-    MaterialPropertyBlock mpb;
-    static readonly int shPropColor = Shader.PropertyToID("_Color");
+    public Color gizmoColor = Color.red;
+
+    private BarrelState barrelState;
 
     [SerializeField]
     public BarrelTypeData typeData;
-    private BarrelState barrelState;
     [SerializeField]
     private BarrelStateData initState;
 
@@ -23,7 +22,7 @@ public class Barrel : Entity
         Debug.Log("Update All Barrel From Manager");
     }
 
-    private void Start()
+    public override void Start()
     {
         base.Start();
 

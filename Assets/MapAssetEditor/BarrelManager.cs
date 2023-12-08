@@ -31,7 +31,7 @@ public class BarrelManager : Singleton<BarrelManager>
                 barrelPos,
                 managerPos - tangentOffset,
                 barrelPos + tangentOffset,
-                barrel.color,
+                barrel.gizmoColor,
                 EditorGUIUtility.whiteTexture,
                 1f
                 );

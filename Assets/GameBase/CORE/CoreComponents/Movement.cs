@@ -14,8 +14,8 @@ public class Movement : COREComponent
     public Vector2 stopOffset;
     private Vector2 workVector;
 
-    
     [SerializeField] [ExposedScriptableObject] public MoveStateData moveStateData;
+
     [SerializeField] [ExposedScriptableObject] public JumpStateData jumpStateData;
                      
     [SerializeField] [ExposedScriptableObject] public InAirStateData inAirStateData;

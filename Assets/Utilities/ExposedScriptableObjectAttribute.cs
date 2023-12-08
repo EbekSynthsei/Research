@@ -30,11 +30,12 @@ namespace LaniakeaCode.Utilities
             //DRAW ARROW
             if(property.objectReferenceValue != null)
             {
+                Rect foldoutPosition = new Rect(position.x + EditorGUI.indentLevel * 15f, position.y + EditorGUIUtility.singleLineHeight, position.width, EditorGUIUtility.singleLineHeight);
                 property.isExpanded = EditorGUI.Foldout(position, property.isExpanded, GUIContent.none);
             }
 
             //DRAW FOLDOUT PROPERTIES
-            if (property.isExpanded)
+            if (property.isExpanded && property.objectReferenceValue != null)
             {
 
                 //Make Child indented
@@ -44,11 +45,11 @@ namespace LaniakeaCode.Utilities
                 if (!editor)
                 {
                     
-                    Editor.CreateCachedEditor(property.objectReferenceValue, null , ref editor);
+                    Editor.CreateCachedEditor(property.objectReferenceValue, System.Type.GetType(property.type) , ref editor);
 
                 }
-                
                 editor.OnInspectorGUI();
+                
 
                 //RESET INDENT
                 EditorGUI.indentLevel--;
