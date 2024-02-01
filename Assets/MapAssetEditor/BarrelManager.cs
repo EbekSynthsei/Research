@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LaniakeaCode.Events;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,12 +11,29 @@ using UnityEditor;
 public class BarrelManager : Singleton<BarrelManager>
 {
     public static List<Barrel> barrels = new List<Barrel>();
+    
+    BarrelEventListener barrelListener;
+
+    private void Awake()
+    {
+        barrelListener = GetComponent<BarrelEventListener>();
+    }
+
+
 
     public void UpdateAllBarrelStats()
     {
         foreach(Barrel barrel in barrels)
         {
             barrel.ApplyColor();
+        }
+    }
+
+    private void setAllBarrelFromEvent(BarrelEvent barrelEvent)
+    {
+        foreach(Barrel barrel in barrels)
+        {
+            Debug.Log("Mannaggiatutto");
         }
     }
     private void OnDrawGizmos()

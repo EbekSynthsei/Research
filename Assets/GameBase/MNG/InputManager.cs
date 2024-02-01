@@ -10,6 +10,7 @@ public class InputManager : Singleton<InputManager>
 
     public void Awake()
     {
+        Debug.Log("Awake InputManager");
         inputActions = new PlayerActionControls();
     }
 
@@ -24,10 +25,11 @@ public class InputManager : Singleton<InputManager>
 
     public Vector2 OnMoveInput()
     {
+        Debug.Log("On Move Input");
         return inputActions.GamePlay.Move.ReadValue<Vector2>();
     }
     public int NormInputX()
-    {
+    {   
         return (int)(OnMoveInput() * Vector2.right).normalized.x;
     }
     public int NormInputY()
@@ -37,6 +39,7 @@ public class InputManager : Singleton<InputManager>
 
     public bool GrabInput()
     {
+        Debug.Log("Grab!");
         var button = inputActions.GamePlay.Grab.ReadValue<float>();
         if (button != 0)
         {
@@ -51,22 +54,27 @@ public class InputManager : Singleton<InputManager>
 
     public bool OnJumpPressed()
     {
+        Debug.Log("Jump!");
         return inputActions.GamePlay.Jump.triggered;        
     }
     public bool OnCrouchPressed()
     {
+        Debug.Log("Crouch!");
         return inputActions.GamePlay.Crouch.triggered;
     }
     public bool OnPrimaryAttackPressed()
     {
+        Debug.Log("Primary!");
         return inputActions.GamePlay.PrimaryAttack.triggered;
     }
     public bool OnSecondaryAttackPressed()
     {
+        Debug.Log("Secondary!");
         return inputActions.GamePlay.SecondaryAttack.triggered;
     }
     public bool OnDashPressed()
     {
+        Debug.Log("Dash!");
         return inputActions.GamePlay.Dash.triggered;
     }
 }

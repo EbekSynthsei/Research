@@ -41,3 +41,14 @@ using UnityEngine;
         None,
         Base
     }
+
+public enum EntityType
+{
+    Base,
+    Player,
+    Enemy,
+    NPC,
+    Barrel,
+    Ground,
+    Projectile
+}

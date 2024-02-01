@@ -36,6 +36,9 @@ public class EntityData : ScriptableObject
     [Range(0.1f, 100f)]
     public float maxAggroDistance = 4.0f;
 
+    [Header("Identifier")]
+    public EntityType entityType = EntityType.Base;
+
     public LayerMask whatIsTarget;
 
     [Header("Attack Data")]

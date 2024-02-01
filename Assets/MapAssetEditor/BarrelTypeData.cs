@@ -19,6 +19,7 @@ namespace LaniakeaCode.Utilities
         VoidEvent voidEvent;
         [SerializeField]
         List<InteractionType> interactionType;
-
+        [SerializeField]
+        BarrelEvent barrelEvent;
     }
 }
