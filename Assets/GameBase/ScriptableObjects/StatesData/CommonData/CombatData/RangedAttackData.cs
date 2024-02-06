@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using LaniakeaCode.Utilities;
 [CreateAssetMenu(fileName = ("New Ranged Attack State Data"), menuName = ("LaniakeaTools/State Data/Attack/Ranged Attack Data"))]
-public class RangedAttackData : ScriptableObject
+public class RangedAttackData : ScriptableStateData
 {
     [Header("Ranged Attack Data")]
     public GameObject projectile;

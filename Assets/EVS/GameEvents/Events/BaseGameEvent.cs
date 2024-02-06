@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using LaniakeaCode.Utilities;
 
 namespace LaniakeaCode.Events
 {
 
-    public abstract class BaseGameEvent<T> : ScriptableObject
+    public abstract class BaseGameEvent<T> : ScriptableEvent
     {
         private readonly List<IGameEventListener<T>> eventListener = new List<IGameEventListener<T>>();
         

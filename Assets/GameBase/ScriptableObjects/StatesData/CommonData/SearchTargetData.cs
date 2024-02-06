@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using LaniakeaCode.Utilities;
 
 [CreateAssetMenu(fileName = ("New Search Target State Data"), menuName = ("LaniakeaTools/State Data/Search Target Data"))]
-public class SearchTargetData : ScriptableObject
+public class SearchTargetData : ScriptableStateData
 {
     [Min(0)]
     public int amountOfTurns = 2;

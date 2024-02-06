@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using LaniakeaCode.Utilities;
 
 [CreateAssetMenu(fileName = ("New Jump State Data"), menuName = ("LaniakeaTools/State Data/Jump Data"))]
-public class JumpStateData : ScriptableObject
+public class JumpStateData : ScriptableStateData
 {
     [Header("Jump Velocity")]
     [Range(0.0f, 100.0f)]

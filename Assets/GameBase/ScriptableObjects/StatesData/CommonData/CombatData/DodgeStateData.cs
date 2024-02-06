@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using LaniakeaCode.Utilities;
 
 [CreateAssetMenu(fileName = ("New Dodge State Data"), menuName = ("LaniakeaTools/State Data/Attack/Dodge Data"))]
-public class DodgeStateData : ScriptableObject
+public class DodgeStateData : ScriptableStateData
 {
 
     [Range(0.0f,100.0f)]

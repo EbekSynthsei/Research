@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using LaniakeaCode.Utilities;
 
 [CreateAssetMenu(fileName = ("New Entity Data"), menuName = ("LaniakeaTools/Entity Data/Entity Data"))]
-public class EntityData : ScriptableObject
+public class EntityData : ScriptableTypeData
 {
+    [Header("Prefab")]
+    public GameObject prefab;
+
     [Header("Stats")]
 
     [Range(0.0f, 100.0f)]

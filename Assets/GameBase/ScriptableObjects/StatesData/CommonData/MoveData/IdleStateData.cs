@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using LaniakeaCode.Utilities;
 
 [CreateAssetMenu(fileName = ("New Idle State Data"), menuName = ("LaniakeaTools/State Data/Idle Data"))]
-public class IdleStateData : ScriptableObject
+public class IdleStateData : ScriptableStateData
 {
     [Min(0.0f)]
     public float minIdleTime = 2.0f;

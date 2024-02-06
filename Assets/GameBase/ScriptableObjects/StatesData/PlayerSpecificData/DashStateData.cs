@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using LaniakeaCode.Utilities;
 [CreateAssetMenu(fileName = ("New Dash State Data"), menuName = ("LaniakeaTools/State Data/Dash Data"))]
-public class DashStateData : ScriptableObject
+public class DashStateData : ScriptableStateData
 {
     [Range(0.0f, 10.0f)]
     public float dashCooldown = 0.5f;

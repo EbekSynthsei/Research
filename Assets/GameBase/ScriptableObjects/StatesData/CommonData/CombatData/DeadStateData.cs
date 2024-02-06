@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using LaniakeaCode.Utilities;
 
 [CreateAssetMenu(fileName = ("New Dead State Data"), menuName = ("LaniakeaTools/State Data/Dead Data"))]
-public class DeadStateData : ScriptableObject
+public class DeadStateData : ScriptableStateData
 {
     public GameObject DeadObject;    
 

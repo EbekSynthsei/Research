@@ -42,14 +42,16 @@ namespace LaniakeaCode.Utilities
                 EditorGUI.indentLevel++;
 
                 //DRAW OBJ PROPERTIES
-                if (!editor)
+                if (!editor && property.objectReferenceValue != null)
                 {
                     
-                    Editor.CreateCachedEditor(property.objectReferenceValue, System.Type.GetType(property.type) , ref editor);
+                    Editor.CreateEditor(property.objectReferenceValue);
 
                 }
-                editor.OnInspectorGUI();
-                
+                if (editor != null)
+                {
+                    editor.OnInspectorGUI();
+                }
 
                 //RESET INDENT
                 EditorGUI.indentLevel--;

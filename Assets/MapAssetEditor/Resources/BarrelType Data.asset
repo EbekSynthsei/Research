@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8324274cda36e419b57cb5a2a632fc, type: 3}
   m_Name: BarrelType Data
   m_EditorClassIdentifier: 
+  prefab: {fileID: 8325898427298084717, guid: 1062def502420af43be646e50f88dc00, type: 3}
   maxHealth: 100
   wallCheckDistance: 2
   ledgeCheckDistance: 1.8
@@ -23,6 +24,7 @@ MonoBehaviour:
     m_Bits: 0
   minAggroDistance: 2
   maxAggroDistance: 4
+  entityType: 0
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 0

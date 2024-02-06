@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using LaniakeaCode.Utilities;
 
 [CreateAssetMenu(fileName = ("New Touching Wall State Data"), menuName = ("LaniakeaTools/State Data/Touching Wall State Data"))]
-public class TouchingWallData : ScriptableObject
+public class TouchingWallData : ScriptableStateData
 {
     [Range(0.0f, 100.0f)]
     public float wallSlideVelocity = 1f;

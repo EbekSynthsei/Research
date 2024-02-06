@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using LaniakeaCode.Utilities;
 
 [CreateAssetMenu(fileName =("New Move State Data"), menuName =("LaniakeaTools/State Data/Move Data"))]
-public class MoveStateData : ScriptableObject
+public class MoveStateData : ScriptableStateData
 {
     [Header("Entity Speed")]
     [Range(0.0f,100.0f)]

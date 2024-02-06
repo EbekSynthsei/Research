@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using LaniakeaCode.Utilities;
 [CreateAssetMenu(fileName = ("New Stun State Data"), menuName = ("LaniakeaTools/State Data/Attack/StunData"))]
-public class StunStateData : ScriptableObject
+public class StunStateData : ScriptableStateData
 {
     [Header("Stun")]
     [Range(0.2f, 10.0f)]
