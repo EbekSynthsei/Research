@@ -14,6 +14,11 @@ public class Weapon : MonoBehaviour
     protected int AttackCounter;
     protected virtual void Awake()
     {
+        if(transform.Find("Base") == null || transform.Find("Weapon") == null)
+        {
+            Debug.LogError("Missing Base or Weapon in " + this.name);
+        }
+
         BaseAnimator = transform.Find("Base").GetComponent<Animator>();
         WeaponAnimator = transform.Find("Weapon").GetComponent<Animator>();
 

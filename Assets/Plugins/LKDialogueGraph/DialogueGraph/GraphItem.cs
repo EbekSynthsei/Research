@@ -17,7 +17,6 @@ namespace LaniakeaCode.GraphSystem
         public List<EndNodeData> endNodeDatas = new List<EndNodeData>();
         public List<DialogueNodeData> dialogueNodeDatas = new List<DialogueNodeData>();
         public List<GraphEventNodeData> graphEventNodeDatas = new List<GraphEventNodeData>();
-
         public List<NodeData> AllNodeDatas
         {
             get
@@ -27,7 +26,6 @@ namespace LaniakeaCode.GraphSystem
                 tmp.AddRange(endNodeDatas);
                 tmp.AddRange(dialogueNodeDatas);
                 tmp.AddRange(graphEventNodeDatas);
-
                 return tmp;
             }
         }

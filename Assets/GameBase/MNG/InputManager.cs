@@ -69,7 +69,7 @@ public class InputManager : Singleton<InputManager>
     }
     public bool OnSecondaryAttackPressed()
     {
-        Debug.Log("Secondary!");
+        Debug.Log("Interaction!");
         return inputActions.GamePlay.SecondaryAttack.triggered;
     }
     public bool OnDashPressed()

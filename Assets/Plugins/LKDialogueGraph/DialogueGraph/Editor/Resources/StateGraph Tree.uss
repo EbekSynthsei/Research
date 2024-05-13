@@ -1,0 +1,19 @@
+.stateGraphTreeName
+{
+	background-color : rgba(0, 63, 63, 205);
+	padding-top :3px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.saveButton
+{
+
+}
+.loadButton
+{
+
+}
+.toolbarLanguage 
+{
+	background-color : rgba(0, 63, 63, 205);
+}

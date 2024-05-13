@@ -18,5 +18,10 @@ namespace LaniakeaCode.Utilities
         public float holdDuration;
         public bool holdInteract;
         public bool multipleUse;
+
+        public void Interact()
+        {
+            Debug.LogWarning("Interaction : " + interactionName + " was triggered");
+        }
     }
 }

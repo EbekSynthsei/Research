@@ -52,3 +52,13 @@ public enum EntityType
     Ground,
     Projectile
 }
+public enum GlobalGameState
+{
+    GlobalPause,
+    GlobalContinue,
+    GlobalMainMenu,
+    PlayerMenu,
+    PlayerControl,
+    PlayerInteraction,
+    Passage
+}

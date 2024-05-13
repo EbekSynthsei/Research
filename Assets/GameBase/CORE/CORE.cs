@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Object Core that serves as a building block
+/// </summary>
 public class CORE : MonoBehaviour
 {
     public Movement movement { get; private set; }
@@ -15,7 +18,7 @@ public class CORE : MonoBehaviour
         combatSenses = GetComponentInChildren<CombatSenses>();
         if (!movement || !collisionSenses || !combatSenses)
         {
-            Debug.Log("Missing CoreComponent");
+            Debug.LogError("Missing CoreComponent");
         }
     }
 

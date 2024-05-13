@@ -1,3 +1,5 @@
+using Cinemachine;
+using LaniakeaCode.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,8 +34,9 @@ namespace LaniakeaCode.Utilities
         public bool MultipleUse { get => interactionData.multipleUse; set => multipleUse = interactionData.multipleUse; }
         public bool IsInteractable { get => isInteractable; set => isInteractable = value; }
 
+
         void Awake()
-        {
+        { 
             SetInteractionArea();
         }
 
@@ -48,17 +51,23 @@ namespace LaniakeaCode.Utilities
         {
             if (AgentInArea())
             {
-                Debug.Log("In Area : " + gameObject.name);
-
+                if (debugEnabled)
+                {
+                    Debug.Log("In Area : " + gameObject.name);
+                }
                 ShowInteractionHint();
                 OnInteract();
             }
         }
         public void OnInteract()
         {
-            if (isInteractable)
+            if (isInteractable && AgentInArea())
             {
-                Debug.Log("Interacted with : " + gameObject.name);
+                if (debugEnabled)
+                {
+                    Debug.Log("Interacted with : " + gameObject.name);
+                    
+                }
             }
         }
 
@@ -74,9 +83,10 @@ namespace LaniakeaCode.Utilities
             interactionArea = GetComponent<CircleCollider2D>();
             interactionArea.isTrigger = true;
             interactionArea.radius = interactionData.interactionAreaRadius;
+
             if (debugEnabled)
             {
-                Debug.Log("Interaction area test point :" + interactionPoint.ToString() + "radius:" + interactionArea.radius + "data:" + interactionData.ToString());
+                Debug.Log("Interaction area test point :" + interactionPoint.ToString() + "radius:" + interactionArea.radius + "data:" + interactionData.interactionName);
             }
         }
 
@@ -96,8 +106,8 @@ namespace LaniakeaCode.Utilities
             {
                 Debug.Log("HO MOSTRATO L'HINT" + interactionData.interactionName);
             }
-            //Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(transform.position);
-
+            Vector2 ViewportPosition = Camera.main.transform.position;
+            Debug.Log("Viewport Position x:" + ViewportPosition.x + " y: " + ViewportPosition.y);
 
             //Vector2 WorldObject_ScreenPosition = new Vector2(
             //((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),

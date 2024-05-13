@@ -10,7 +10,7 @@ public class COREComponent : MonoBehaviour
         Core = transform.parent.GetComponent<CORE>();
         if(Core == null)
         {
-            Debug.Log("No Core On Parent");
+            Debug.LogError("No Core On Parent");
         }
 
     }
