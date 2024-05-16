@@ -7,7 +7,9 @@ using System;
 public class GameManager : Singleton<GameManager>
 {
     public GlobalGameState gameState;
+
     public static BaseGameEvent<GlobalGameState> OnGameStateChanged;
+
     private void Awake()
     {
         gameState = GlobalGameState.GlobalContinue;
