@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LaniakeaCode.Events;
 
 namespace LaniakeaCode.Utilities
 {
@@ -20,7 +21,8 @@ namespace LaniakeaCode.Utilities
         public bool multipleUse;
         [Header("Interaction Actions")]
         public List<ScriptableAction> scriptableActions;
- 
+        [Header("Interaction Events")]
+        public BoolEvent scriptableEvent;
         public virtual void Interact()
         {
         }

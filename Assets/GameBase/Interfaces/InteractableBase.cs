@@ -94,9 +94,13 @@ namespace LaniakeaCode.Utilities
             {
                 if (debugEnabled)
                 {
-                    interactionData.scriptableActions.
-                         ForEach(x => x.PerformAction(this.gameObject, this.gameObject)); //TODO: SPECIFICARE AGENTE
-                 }
+                    if (interactionData.scriptableActions.Count != 0)
+                    {
+                        interactionData.scriptableActions.
+                            ForEach(x => x
+                            .PerformAction(this.gameObject, this.gameObject)); //TODO: SPECIFICARE AGENTE
+                    }
+                }
             }
         }
 
@@ -119,7 +123,8 @@ namespace LaniakeaCode.Utilities
             if(collision.tag == "Player")
             {
                 ShowInteractionHint(true);
-
+                BoolEvent x = interactionData.scriptableEvent;
+                x.Raise();
             }
             
         }
@@ -128,7 +133,8 @@ namespace LaniakeaCode.Utilities
             if (collision.tag == "Player")
             {
                 ShowInteractionHint(false);
-
+                BoolEvent x = interactionData.scriptableEvent;
+                x.Raise(false);
             }
 
         }
@@ -138,6 +144,7 @@ namespace LaniakeaCode.Utilities
             if (debugEnabled)
             {
                 Debug.Log("HO MOSTRATO L'HINT" + interactionData.interactionName);
+                
             }
             Vector2 ViewportPosition = Camera.main.transform.position;
             Debug.Log("Viewport Position x:" + ViewportPosition.x + " y: " + ViewportPosition.y);
@@ -145,10 +152,9 @@ namespace LaniakeaCode.Utilities
             Vector2 WorldObject_ScreenPosition = new Vector2(
             ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
             ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
-
+            
             //now you can set the position of the ui element
             uiElement.anchoredPosition = WorldObject_ScreenPosition;
-            uiElement.gameObject.SetActive(shouldShow); //TODO : POOLING DELLE UI 
         }
 #if UNITY_EDITOR
         void OnDrawGizmos()

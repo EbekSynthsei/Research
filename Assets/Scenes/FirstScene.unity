@@ -286,7 +286,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.46
+  m_Radius: 0.75
 --- !u!4 &331462338
 Transform:
   m_ObjectHideFlags: 0
@@ -512,15 +512,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2256,7 +2256,7 @@ Canvas:
   m_GameObject: {fileID: 1414449707}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 901152475}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2884,7 +2884,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1680315345}
   - component: {fileID: 1680315346}
-  - component: {fileID: 1680315347}
   m_Layer: 6
   m_Name: Collision Senses
   m_TagString: Untagged
@@ -2943,27 +2942,6 @@ MonoBehaviour:
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 640
---- !u!50 &1680315347
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680315344}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &1711947607
 GameObject:
   m_ObjectHideFlags: 0
@@ -3040,7 +3018,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.3590909, y: 1}
+    m_SensorSize: {x: 1.1802198, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3160,7 +3138,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.3590909, y: 1}
+    m_SensorSize: {x: 1.1802198, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3411,6 +3389,8 @@ GameObject:
   - component: {fileID: 2040341160}
   - component: {fileID: 2040341159}
   - component: {fileID: 2040341161}
+  - component: {fileID: 2040341163}
+  - component: {fileID: 2040341162}
   m_Layer: 0
   m_Name: StateDrivenCamera
   m_TagString: Untagged
@@ -3448,6 +3428,10 @@ MonoBehaviour:
   - m_FullHash: -1211623630
     m_VirtualCamera: {fileID: 1816244916}
     m_ActivateAfter: 0
+    m_MinDuration: 0
+  - m_FullHash: 664333500
+    m_VirtualCamera: {fileID: 1739758298}
+    m_ActivateAfter: 0.2
     m_MinDuration: 0
   m_DefaultBlend:
     m_Style: 1
@@ -3499,6 +3483,46 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2040341162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040341158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb6d7271a1b34547b5d5ad8f3f5ec90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: cbf411444c9141d42b0094485e5d8789, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2040341163}
+        m_TargetAssemblyTypeName: LaniakeaCode.Utilities.CameraSwitchManager, Assembly-CSharp
+        m_MethodName: SwitchState
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2040341163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040341158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8926ca8c31982c04187df88533e0cd27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2097036307
 GameObject:
   m_ObjectHideFlags: 0
