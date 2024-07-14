@@ -6,5 +6,6 @@ namespace LaniakeaCode.Events
     public class BoolEvent : BaseGameEvent<bool>
     {
         public void Raise() => Raise(false);
+        public void RaiseTrue() => Raise(true);
     }
 }

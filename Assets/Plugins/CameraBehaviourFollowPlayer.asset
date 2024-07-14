@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61b3c0b1f8271d74dbfb4989867b4798, type: 3}
-  m_Name: Player Touching Wall Data
+  m_Script: {fileID: 11500000, guid: 4a6c53ec8b4b6d14f9db43382ac45986, type: 3}
+  m_Name: CameraBehaviourFollowPlayer
   m_EditorClassIdentifier: 
-  wallSlideVelocity: 2.1
-  wallClimbVelocity: 5
-  wallJumpVelocity: 5.8
-  wallJumpTime: 0.56
-  wallJumpAngle: {x: 1, y: 2.5}
+  ToPass: PlayerCamera

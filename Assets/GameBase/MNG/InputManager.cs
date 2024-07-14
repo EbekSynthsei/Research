@@ -66,6 +66,7 @@ public class InputManager : Singleton<InputManager>
     {
         return inputActions.GamePlay.SecondaryAttack.triggered;
     }
+
     public bool OnDashPressed()
     {
 

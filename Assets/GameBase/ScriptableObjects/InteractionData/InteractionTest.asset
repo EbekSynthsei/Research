@@ -16,10 +16,12 @@ MonoBehaviour:
   validAgents:
     serializedVersion: 2
     m_Bits: 64
-  interactionAreaRadius: 2.73
+  interactionAreaRadius: 1.6
+  focusAreaRadius: 2.7
+  focusCenter: {fileID: 0}
   holdDuration: 0
   holdInteract: 0
   multipleUse: 0
   scriptableActions:
   - {fileID: 0}
-  scriptableEvent: {fileID: 11400000, guid: cbf411444c9141d42b0094485e5d8789, type: 2}
+  scriptableEvent: {fileID: 0}

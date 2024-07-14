@@ -14,6 +14,9 @@ namespace LaniakeaCode.Utilities
 
         [Range(0f, 10f)]
         public float interactionAreaRadius;
+        [Range(0.2f, 20f)]
+        public float focusAreaRadius;
+        public Transform focusCenter;
 
         [Min(0f)]
         public float holdDuration;

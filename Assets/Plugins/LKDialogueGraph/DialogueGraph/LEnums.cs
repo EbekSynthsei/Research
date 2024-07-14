@@ -62,3 +62,8 @@ public enum GlobalGameState
     PlayerInteraction,
     Passage
 }
+public enum CameraBehaviour
+{
+    FollowPlayer,
+    FollowTarget
+}
