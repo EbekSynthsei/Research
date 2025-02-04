@@ -73,6 +73,14 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""dc09f7fe-5230-4e34-a726-846e5fe28d85"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -317,6 +325,17 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                     ""action"": ""Grab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08510473-28f5-4e61-abd5-3aec5cdd9dd0"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -360,6 +379,7 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
         m_GamePlay_SecondaryAttack = m_GamePlay.FindAction("SecondaryAttack", throwIfNotFound: true);
         m_GamePlay_Dash = m_GamePlay.FindAction("Dash", throwIfNotFound: true);
         m_GamePlay_Grab = m_GamePlay.FindAction("Grab", throwIfNotFound: true);
+        m_GamePlay_Interact = m_GamePlay.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -416,6 +436,7 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
     private readonly InputAction m_GamePlay_SecondaryAttack;
     private readonly InputAction m_GamePlay_Dash;
     private readonly InputAction m_GamePlay_Grab;
+    private readonly InputAction m_GamePlay_Interact;
     public struct GamePlayActions
     {
         private @PlayerActionControls m_Wrapper;
@@ -427,6 +448,7 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
         public InputAction @SecondaryAttack => m_Wrapper.m_GamePlay_SecondaryAttack;
         public InputAction @Dash => m_Wrapper.m_GamePlay_Dash;
         public InputAction @Grab => m_Wrapper.m_GamePlay_Grab;
+        public InputAction @Interact => m_Wrapper.m_GamePlay_Interact;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -457,6 +479,9 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                 @Grab.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnGrab;
                 @Grab.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnGrab;
                 @Grab.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnGrab;
+                @Interact.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_GamePlayActionsCallbackInterface = instance;
             if (instance != null)
@@ -482,6 +507,9 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                 @Grab.started += instance.OnGrab;
                 @Grab.performed += instance.OnGrab;
                 @Grab.canceled += instance.OnGrab;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -513,5 +541,6 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
         void OnSecondaryAttack(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnGrab(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

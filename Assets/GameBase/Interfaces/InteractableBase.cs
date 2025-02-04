@@ -31,7 +31,6 @@ namespace LaniakeaCode.Utilities
         [SerializeField]
         private bool isInteractable;
 
-
         [Header("Camera")]
         [Tooltip("Should be the Interactable Camera")]
         [SerializeField]
@@ -50,7 +49,9 @@ namespace LaniakeaCode.Utilities
         public bool MultipleUse { get => interactionData.multipleUse; set => multipleUse = interactionData.multipleUse; }
         public bool IsInteractable { get => isInteractable; set => isInteractable = value; }
 
-
+        /// <summary>
+        /// Initializes the interactable object.
+        /// </summary>
         void Awake()
         {
             ValidateInteractable();
@@ -59,7 +60,9 @@ namespace LaniakeaCode.Utilities
             SetFocusArea();
         }
 
-
+        /// <summary>
+        /// Validates the interactable object.
+        /// </summary>
         private void ValidateInteractable()
         {
             if (interactionData == null)
@@ -72,6 +75,9 @@ namespace LaniakeaCode.Utilities
             }
         }
 
+        /// <summary>
+        /// Sets the interaction area.
+        /// </summary>
         public void SetInteractionArea()
         {
             interactionPoint = gameObject.transform;
@@ -81,14 +87,17 @@ namespace LaniakeaCode.Utilities
             interactionArea.transform.position = interactionPoint.position;
         }
 
+        /// <summary>
+        /// Sets the focus target.
+        /// </summary>
         private void SetFocusTarget()
         {
-            if (focusTarget == null && interactionData.focusCenter==null)
+            if (focusTarget == null && interactionData.focusCenter == null)
             {
                 Debug.LogWarning("No Focus Target Set, defaulting to self");
                 focusTarget = this.gameObject;
             }
-            else if(focusTarget!= null || interactionData.focusCenter!= null)
+            else if (focusTarget != null || interactionData.focusCenter != null)
             {
                 if (interactionData.focusCenter != null)
                 {
@@ -97,6 +106,9 @@ namespace LaniakeaCode.Utilities
             }
         }
 
+        /// <summary>
+        /// Sets the focus area.
+        /// </summary>
         private void SetFocusArea()
         {
             focusArea = (CircleCollider2D)this
@@ -111,13 +123,15 @@ namespace LaniakeaCode.Utilities
                 .position = interactionData
                 .focusCenter != null ? interactionData
                 .focusCenter
-                .position 
+                .position
                 : focusTarget
                 .transform
                 .position;
         }
 
-        // Update is called once per frame
+        /// <summary>
+        /// Update is called once per frame.
+        /// </summary>
         void Update()
         {
             if (AgentInInteractionArea())
@@ -130,6 +144,10 @@ namespace LaniakeaCode.Utilities
                 OnInteract();
             }
         }
+
+        /// <summary>
+        /// Handles the interaction logic.
+        /// </summary>
         public void OnInteract()
         {
             if (isInteractable && AgentInInteractionArea())
@@ -138,16 +156,31 @@ namespace LaniakeaCode.Utilities
                 {
                     interactionData.Interact();
                 }
+                // Check if the interaction button is pressed and start the dialogue
+                if (InputManager.Instance.OnInteractionButtonPressed())
+                {
+                    DialogueController dialogueController = FindObjectOfType<DialogueController>();
+                    if (dialogueController != null)
+                    {
+                        dialogueController.StartUIPanel();
+                    }
+                }
             }
         }
 
+        /// <summary>
+        /// Checks if the agent is in the interaction area.
+        /// </summary>
+        /// <returns>True if the agent is in the interaction area, otherwise false.</returns>
         public bool AgentInInteractionArea()
         {
             return interactionArea.IsTouchingLayers(interactionData.validAgents); //TODO : MANAGE VALID AGENTS AND SWITCH BEHAVIOUR
         }
 
-
-
+        /// <summary>
+        /// Switches the focus of the camera.
+        /// </summary>
+        /// <param name="focus">True to focus, otherwise false.</param>
         private void SwitchFocus(bool focus)
         {
             virtualCamera.Follow = focusTarget.transform;
@@ -158,22 +191,35 @@ namespace LaniakeaCode.Utilities
                 x.Raise();
             }
         }
+
+        /// <summary>
+        /// Checks the state of the player.
+        /// </summary>
+        /// <param name="collision">The collider of the player.</param>
+        /// <returns>The type of the player's current state.</returns>
         private Type CheckPlayerState(Collider2D collision)
         {
             Player targetPlayer = collision.gameObject.GetComponent<Player>();
             return targetPlayer.stateMachine.currentState.GetType();
         }
 
+        /// <summary>
+        /// Handles the trigger enter event.
+        /// </summary>
+        /// <param name="collision">The collider that entered the trigger.</param>
         private void OnTriggerEnter2D(Collider2D collision)
         {
-
             if (collision.tag == "Player" && collision.gameObject.tag == "Barrel")
             {
                 SwitchFocus(true);
                 ShowInteractionHint(true);
             }
-
         }
+
+        /// <summary>
+        /// Handles the trigger stay event.
+        /// </summary>
+        /// <param name="collision">The collider that stayed in the trigger.</param>
         private void OnTriggerStay2D(Collider2D collision)
         {
             if (typeof(O_AttackState) == CheckPlayerState(collision))
@@ -182,18 +228,23 @@ namespace LaniakeaCode.Utilities
             }
         }
 
-
-
+        /// <summary>
+        /// Handles the trigger exit event.
+        /// </summary>
+        /// <param name="collision">The collider that exited the trigger.</param>
         private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.tag == "Player")
             {
                 SwitchFocus(false);
                 ShowInteractionHint(false);
-
             }
-
         }
+
+        /// <summary>
+        /// Shows or hides the interaction hint.
+        /// </summary>
+        /// <param name="shouldShow">True to show the hint, otherwise false.</param>
         public void ShowInteractionHint(bool shouldShow)
         {
             RectTransform CanvasRect = GetComponentInChildren<RectTransform>(); //TODO : DELEGATE THIS TO A UI MANAGER
@@ -213,6 +264,9 @@ namespace LaniakeaCode.Utilities
         }
 
 #if UNITY_EDITOR
+        /// <summary>
+        /// Draws gizmos in the editor.
+        /// </summary>
         void OnDrawGizmos()
         {
             if (interactionData != null)

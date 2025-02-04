@@ -118,4 +118,8 @@ public class InputManager : Singleton<InputManager>
     {
         return inputActions.GamePlay.Dash.triggered;
     }
+
+    public bool OnInteractionButtonPressed(){
+        return inputActions.GamePlay.Interact.triggered;
+    }
 }

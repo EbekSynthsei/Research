@@ -7,7 +7,10 @@ using LaniakeaCode.Utilities;
 
 namespace LaniakeaCode.Events
 {
-    public class InteractableMapListener: BaseGameEventListener<Dictionary<Entity,IInteractable>, DictionaryEvent, UnityDictionaryEvent>
+    /// <summary>
+    /// Listener for events involving a dictionary of entities and interactables.
+    /// </summary>
+    public class InteractableMapListener : BaseGameEventListener<Dictionary<Entity, IInteractable>, DictionaryEvent, UnityDictionaryEvent>
     {
 
     }
