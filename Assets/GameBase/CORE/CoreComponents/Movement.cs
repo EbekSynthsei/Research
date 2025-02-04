@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LaniakeaCode.Utilities;
+
+/// <summary>
+/// Handles movement logic for the core.
+/// </summary>
 public class Movement : COREComponent
 {
     public Rigidbody2D Rb { get; private set; }

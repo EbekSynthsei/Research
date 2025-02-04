@@ -4,24 +4,49 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Class responsible for loading CSV data into dialogue nodes and ports.
+/// </summary>
 public class LoadCSV
 {
     private string csvDirectoryName = "Resources/DialogueGraphsCSV";
     private string csvFileName = "DialogueCSV_Load.csv";
     
-    public void Load()
+    public List<string> GetAllCSVFiles()
     {
-        List<List<string>> result = ParseCSV(File.ReadAllText($"{Application.dataPath}/{ csvDirectoryName}/{csvFileName}"));
+        string directoryPath = $"{Application.dataPath}/{csvDirectoryName}";
+        if (Directory.Exists(directoryPath))
+        {
+            return Directory.GetFiles(directoryPath, "*.csv").Select(Path.GetFileName).ToList();
+        }
+        return new List<string>();
+    }
+    
+    /// <summary>
+    /// Loads the CSV data and updates the dialogue nodes and ports.
+    /// </summary>
+    /// <param name="selectedFileName">Optional selected file name.</param>
+    public void Load(string selectedFileName = null)
+    {
+        // Use the provided file name or default to csvFileName
+        string fileNameToUse = selectedFileName ?? csvFileName;
 
+        // Parse the CSV file
+        List<List<string>> result = ParseCSV(File.ReadAllText($"{Application.dataPath}/{ csvDirectoryName}/{fileNameToUse}"));
+
+        // Get the headers from the CSV
         List<string> headers = result[0];
 
+        // Find all graph trees
         List<GraphTree> graphTrees = GenericHelper.FindAllGraphs();
 
+        // Iterate through each graph tree and update nodes and ports
         foreach(GraphTree tree in graphTrees)
         {
             foreach(DialogueNodeData nodeData in tree.dialogueNodeDatas)
@@ -35,8 +60,14 @@ public class LoadCSV
             EditorUtility.SetDirty(tree);
             AssetDatabase.SaveAssets();
         }
-
     }
+
+    /// <summary>
+    /// Loads data into a dialogue node from the CSV.
+    /// </summary>
+    /// <param name="_result">Parsed CSV data.</param>
+    /// <param name="_headers">CSV headers.</param>
+    /// <param name="_nodeData">Dialogue node data to be updated.</param>
     private void LoadIntoNode(List<List<string>> _result, List<string> _headers, DialogueNodeData _nodeData)
     {
         foreach(List<string> line in _result)
@@ -60,6 +91,13 @@ public class LoadCSV
             }
         }
     }
+
+    /// <summary>
+    /// Loads data into a dialogue node port from the CSV.
+    /// </summary>
+    /// <param name="_result">Parsed CSV data.</param>
+    /// <param name="_headers">CSV headers.</param>
+    /// <param name="_nodePort">Dialogue node port to be updated.</param>
     private void LoadIntoNodePort(List<List<string>> _result, List<string> _headers, DialogueNodePort _nodePort)
     {
         foreach (List<string> line in _result)
@@ -84,9 +122,6 @@ public class LoadCSV
         }
     }
 
-    /////////////////////////////////////
-    ///FURUKUZU GITHUB UNITY CSV READER
-    ///
     // flag for processing a CSV
     private enum ParsingMode
     {
@@ -101,15 +136,13 @@ public class LoadCSV
     /// <summary>
     /// Parses the CSV string.
     /// </summary>
-    /// <returns>a two-dimensional array. first index indicates the row.  second index indicates the column.</returns>
-    /// <param name="src">raw CSV contents as string</param>
+    /// <returns>A two-dimensional list. First index indicates the row, second index indicates the column.</returns>
+    /// <param name="src">Raw CSV contents as string.</param>
     public List<List<string>> ParseCSV(string src)
     {
         var rows = new List<List<string>>();
         var cols = new List<string>();
-#pragma warning disable XS0001 // Find APIs marked as TODO in Mono
         var buffer = new StringBuilder();
-#pragma warning restore XS0001 // Find APIs marked as TODO in Mono
 
         ParsingMode mode = ParsingMode.OutQuote;
         bool requireTrimLineHead = false;
@@ -119,10 +152,9 @@ public class LoadCSV
 
         for (int i = 0; i < len; ++i)
         {
-
             char c = src[i];
 
-            // remove whilespace at beginning of line
+            // remove whitespace at beginning of line
             if (requireTrimLineHead)
             {
                 if (isBlank.IsMatch(c.ToString()))

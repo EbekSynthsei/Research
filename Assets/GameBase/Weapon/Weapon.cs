@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Base class for all weapons.
+/// </summary>
 public class Weapon : MonoBehaviour
 {
     protected Animator BaseAnimator;

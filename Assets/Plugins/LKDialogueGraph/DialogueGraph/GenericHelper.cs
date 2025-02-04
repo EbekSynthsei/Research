@@ -9,6 +9,11 @@ namespace LaniakeaCode.Utilities
 {
     public static class GenericHelper
     {
+        /// <summary>
+        /// Finds all objects of type T from the Resources folder.
+        /// </summary>
+        /// <typeparam name="T">The type of objects to find.</typeparam>
+        /// <returns>A list of objects of type T found in the Resources folder.</returns>
         public static List<T> FindAllObjectsFromResources<T>()
         {
             List<T> tmp = new List<T>();
@@ -31,7 +36,10 @@ namespace LaniakeaCode.Utilities
             return tmp;
         }
 
-
+        /// <summary>
+        /// Finds all GraphTree assets in the project.
+        /// </summary>
+        /// <returns>A list of GraphTree assets found in the project.</returns>
         public static List<GraphSystem.GraphTree> FindAllGraphs()
         {
             string[] guids = AssetDatabase.FindAssets("t: GraphTree");

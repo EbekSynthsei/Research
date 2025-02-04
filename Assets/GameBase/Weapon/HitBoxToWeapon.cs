@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Links hitbox detection to weapon functionality.
+/// </summary>
 public class HitBoxToWeapon : MonoBehaviour
 {
     private AggressiveWeapon weapon;

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles collision detection and sensing for the core.
+/// </summary>
 public class CollisionSenses : COREComponent
 {
     public BoxCollider2D HitBox { get => hitBox; set => hitBox = value; }

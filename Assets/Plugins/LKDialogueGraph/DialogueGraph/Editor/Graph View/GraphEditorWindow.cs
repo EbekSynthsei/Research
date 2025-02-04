@@ -39,6 +39,9 @@ namespace LaniakeaCode.GraphSystem
 
         //Style Sheet Name Reference
         private string styleSheetName = "Graph Tree";
+        private LoadCSV loadCSV;
+        private List<string> csvFiles;
+        private string selectedFile;
         #endregion
 
         //Selected Graph
@@ -143,7 +146,27 @@ namespace LaniakeaCode.GraphSystem
             toolbar.Add(graphTreeName);
             toolbar.Add(languageToolbar);
             toolbar.Add(saveButton);
-            toolbar.Add(loadButton);
+            // Add CSV Dropdown
+        loadCSV = new LoadCSV();
+        csvFiles = loadCSV.GetAllCSVFiles();
+        selectedFile = csvFiles.FirstOrDefault();
+
+        var csvDropdown = new PopupField<string>("Select CSV", csvFiles, 0);
+        csvDropdown.RegisterValueChangedCallback(evt =>
+        {
+            selectedFile = evt.newValue;
+        });
+
+        var loadCsvButton = new ToolbarButton(() =>
+        {
+            loadCSV.Load(selectedFile);
+            Debug.Log($"<color=green>Loaded CSV: {selectedFile}</color>");
+        })
+        { text = "Load CSV" };
+
+        toolbar.Add(csvDropdown);
+        toolbar.Add(loadCsvButton);
+            // toolbar.Add(loadButton);
 
             //Adding the Toolbar to the Window
             rootVisualElement.Add(toolbar);
