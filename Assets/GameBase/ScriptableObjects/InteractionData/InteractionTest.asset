@@ -24,4 +24,5 @@ MonoBehaviour:
   multipleUse: 0
   scriptableActions:
   - {fileID: 0}
-  scriptableEvent: {fileID: 0}
+  - {fileID: 0}
+  scriptableEvent: {fileID: 11400000, guid: cbf411444c9141d42b0094485e5d8789, type: 2}

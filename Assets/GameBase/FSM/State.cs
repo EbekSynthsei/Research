@@ -97,6 +97,6 @@ public class State
     /// </summary>
     public virtual void StateDebug()
     { 
-        Debug.Log("<color=green>" + entity + " enters the : " + stateMachine.currentState + "</color>");
+        Debug.Log($"<color=green>{entity} enters the state: <color=yellow>{stateMachine.currentState}</color></color>");
     }
 }

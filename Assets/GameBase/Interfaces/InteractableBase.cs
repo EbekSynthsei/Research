@@ -67,11 +67,11 @@ namespace LaniakeaCode.Utilities
         {
             if (interactionData == null)
             {
-                Debug.LogError("Nessuna Interazione su " + gameObject.name);
+                Debug.LogError("Nessuna Interazione",this);
             }
             if (uiElement == null)
             {
-                Debug.LogError("Nessuna UI D'Interazione su " + gameObject.name);
+                Debug.LogError("Nessuna UI D'Interazione", this);
             }
         }
 
@@ -94,7 +94,7 @@ namespace LaniakeaCode.Utilities
         {
             if (focusTarget == null && interactionData.focusCenter == null)
             {
-                Debug.LogWarning("No Focus Target Set, defaulting to self");
+                Debug.LogWarning("No Focus Target Set, defaulting to self", this);
                 focusTarget = this.gameObject;
             }
             else if (focusTarget != null || interactionData.focusCenter != null)
@@ -251,8 +251,8 @@ namespace LaniakeaCode.Utilities
             Vector2 ViewportPosition = Camera.main.transform.position;
             if (debugEnabled)
             {
-                Debug.Log("HO MOSTRATO L'HINT" + interactionData.interactionName);
-                Debug.Log("Viewport Position x:" + ViewportPosition.x + " y: " + ViewportPosition.y);
+                Debug.Log("HO MOSTRATO L'HINT" + interactionData.interactionName, this);
+                Debug.Log("Viewport Position x:" + ViewportPosition.x + " y: " + ViewportPosition.y, this);
             }
 
             Vector2 WorldObject_ScreenPosition = new Vector2(
@@ -278,7 +278,7 @@ namespace LaniakeaCode.Utilities
                 Gizmos.DrawWireSphere(focusTarget.transform.position, interactionData.focusAreaRadius);
                 if (debugEnabled)
                 {
-                    Debug.Log("Interaction area test point :" + interactionPoint.ToString() + "radius:" + interactionArea.radius + "data:" + interactionData.interactionName);
+                    Debug.Log("Interaction area test point :" + interactionPoint.ToString() + "radius:" + interactionArea.radius + "data:" + interactionData.interactionName, this);
                 }
             }
         }

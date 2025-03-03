@@ -10,6 +10,9 @@ using UnityEditor.Experimental.GraphView;
 
 namespace LaniakeaCode.GraphSystem
 {
+    /// <summary>
+    /// Represents a dialogue node in the dialogue graph.
+    /// </summary>
     public class DialogueNode : BaseNode
     {
         private string characterName;
@@ -34,10 +37,18 @@ namespace LaniakeaCode.GraphSystem
         private ObjectField audioClips_Field;
         private EnumField simpleSwitch_Field;
         private Image preview;
+
         public DialogueNode()
         {
-
+            Debug.Log("<color=green>DialogueNode created with default constructor.</color>");
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DialogueNode"/> class.
+        /// </summary>
+        /// <param name="_vector2">The position of the node.</param>
+        /// <param name="_graphEditor">The editor window.</param>
+        /// <param name="_graphTreeView">The graph tree view.</param>
         public DialogueNode(Vector2 _vector2, GraphEditorWindow _graphEditor, GraphTreeView _graphTreeView)
         {
             editorWindow = _graphEditor;
@@ -67,16 +78,14 @@ namespace LaniakeaCode.GraphSystem
 
             //Setting the Text Field For The Name
             characterName_Field = new TextField("NodeTitle");
-            characterName_Field
-                .RegisterValueChangedCallback(value =>
-                characterName = value
-                .newValue
-                );
-            characterName_Field
-                .SetValueWithoutNotify(CharacterName);
+            characterName_Field.RegisterValueChangedCallback(value =>
+            {
+                characterName = value.newValue;
+                Debug.Log("<color=blue>CharacterName updated:</color> " + characterName);
+            });
+            characterName_Field.SetValueWithoutNotify(CharacterName);
 
-            mainContainer
-                .Add(characterName_Field);
+            mainContainer.Add(characterName_Field);
 
             //Setting The Field For The Main Text Box
             dialogueBoxText_Field = new TextField("");
@@ -87,6 +96,7 @@ namespace LaniakeaCode.GraphSystem
                 .SelectedLanguage
                 ).LanguageGenericType = value
                 .newValue;
+                Debug.Log("<color=blue>DialogueBoxText updated:</color> " + value.newValue);
             });
             dialogueBoxText_Field
                 .SetValueWithoutNotify(dialogueBoxTexts
@@ -108,15 +118,14 @@ namespace LaniakeaCode.GraphSystem
             preview = new Image();
             preview.AddToClassList("speakerPreview");
 
-            speakerImage_Field
-                .RegisterValueChangedCallback(value =>
-                {
-                    Sprite tmp = value.newValue as Sprite;
-                    speakerImage = tmp;
-                    preview.image = (tmp != null ? tmp.texture : null);
-                });
-            speakerImage_Field
-                .SetValueWithoutNotify(speakerImage);
+            speakerImage_Field.RegisterValueChangedCallback(value =>
+            {
+                Sprite tmp = value.newValue as Sprite;
+                speakerImage = tmp;
+                preview.image = (tmp != null ? tmp.texture : null);
+                Debug.Log("<color=blue>SpeakerImage updated:</color> " + speakerImage);
+            });
+            speakerImage_Field.SetValueWithoutNotify(speakerImage);
 
             mainContainer.Add(speakerImage_Field);
 
@@ -128,15 +137,14 @@ namespace LaniakeaCode.GraphSystem
             };
 
             //Enum Field Must be Initialized
-            simpleSwitch_Field
-                .Init(simpleSwitch);
-            simpleSwitch_Field
-                .RegisterValueChangedCallback(value =>
-                simpleSwitch = (SimplSwitchType)value
-                .newValue);
+            simpleSwitch_Field.Init(simpleSwitch);
+            simpleSwitch_Field.RegisterValueChangedCallback(value =>
+            {
+                simpleSwitch = (SimplSwitchType)value.newValue;
+                Debug.Log("<color=blue>SimpleSwitch updated:</color> " + simpleSwitch);
+            });
 
-            simpleSwitch_Field
-                .SetValueWithoutNotify(simpleSwitch);
+            simpleSwitch_Field.SetValueWithoutNotify(simpleSwitch);
 
             mainContainer.Add(simpleSwitch_Field);
 
@@ -151,18 +159,17 @@ namespace LaniakeaCode.GraphSystem
                 .SelectedLanguage
                 ).LanguageGenericType
             };
-            audioClips_Field
-                .RegisterValueChangedCallback(value =>
-                {
-                    audioClips
-                      .Find(audioClip => audioClip
-                      .LanguageType == editorWindow
-                      .SelectedLanguage)
-                      .LanguageGenericType = value
-                      .newValue as AudioClip;
-                });
-            audioClips_Field
-                .SetValueWithoutNotify(audioClips
+            audioClips_Field.RegisterValueChangedCallback(value =>
+            {
+                audioClips
+                  .Find(audioClip => audioClip
+                  .LanguageType == editorWindow
+                  .SelectedLanguage)
+                  .LanguageGenericType = value
+                  .newValue as AudioClip;
+                Debug.Log("<color=blue>AudioClip updated:</color> " + value.newValue);
+            });
+            audioClips_Field.SetValueWithoutNotify(audioClips
                 .Find(audioClip => audioClip
                 .LanguageType == editorWindow
                 .SelectedLanguage)
@@ -182,7 +189,10 @@ namespace LaniakeaCode.GraphSystem
 
             titleButtonContainer
                 .Add(addChoiceButton);
+
+            Debug.Log("<color=green>DialogueNode created at position: </color>" + _vector2);
         }
+
         public override void LoadValueIntoField()
         {
             audioClips_Field
@@ -208,6 +218,8 @@ namespace LaniakeaCode.GraphSystem
             {
                 preview.image = ((Sprite)speakerImage_Field.value).texture;
             }
+
+            Debug.Log("<color=blue>DialogueNode values loaded into field.</color>");
         }
 
         public override void ReloadLanguage()
@@ -220,6 +232,7 @@ namespace LaniakeaCode.GraphSystem
                         .LanguageType == editorWindow
                         .SelectedLanguage).LanguageGenericType = value
                     .newValue;
+                    Debug.Log("<color=blue>DialogueBoxText updated for new language:</color> " + value.newValue);
                 });
             dialogueBoxText_Field
                 .SetValueWithoutNotify(
@@ -231,18 +244,21 @@ namespace LaniakeaCode.GraphSystem
 
             audioClips_Field
                 .RegisterValueChangedCallback(value =>
-                audioClips
-                .Find(audio => audio
-                .LanguageType == editorWindow
-                .SelectedLanguage)
-                .LanguageGenericType = value
-                .newValue as AudioClip);
+                {
+                    audioClips
+                    .Find(audio => audio
+                    .LanguageType == editorWindow
+                    .SelectedLanguage)
+                    .LanguageGenericType = value
+                    .newValue as AudioClip;
+                    Debug.Log("<color=blue>AudioClip updated for new language:</color> " + value.newValue);
+                });
             audioClips_Field
                 .SetValueWithoutNotify(audioClips
                 .Find(audio => audio
                 .LanguageType == editorWindow
-                .SelectedLanguage
-                ).LanguageGenericType);
+                .SelectedLanguage)
+                .LanguageGenericType);
 
             foreach(DialogueNodePort uiPort in DialogueNodePorts)
             {
@@ -257,6 +273,7 @@ namespace LaniakeaCode.GraphSystem
                         .SelectedLanguage
                         ).LanguageGenericType = value
                         .newValue;
+                        Debug.Log("<color=blue>ChoiceText updated for new language:</color> " + value.newValue);
                     });
                 uiPort
                     .choicePortName_Field
@@ -268,6 +285,8 @@ namespace LaniakeaCode.GraphSystem
                     .SelectedLanguage
                     ).LanguageGenericType);
             }
+
+            Debug.Log("<color=blue>DialogueNode language reloaded.</color>");
         }
 
         public Port AddChoicePort(BaseNode _baseNode, DialogueNodePort _dialogueNodePort = null)
@@ -332,6 +351,7 @@ namespace LaniakeaCode.GraphSystem
                     .SelectedLanguage
                     ).LanguageGenericType = value
                     .newValue;
+                    Debug.Log("<color=blue>ChoicePortName updated:</color> " + value.newValue);
                 });
 
             dialogueNodePort
@@ -383,6 +403,8 @@ namespace LaniakeaCode.GraphSystem
             _baseNode
                 .RefreshExpandedState();
 
+            Debug.Log("<color=green>Choice port added to DialogueNode.</color>");
+
             return port;
         }
 
@@ -423,6 +445,8 @@ namespace LaniakeaCode.GraphSystem
                 .RefreshPorts();
             _node
                 .RefreshExpandedState();
+
+            Debug.Log("<color=red>Choice port removed from DialogueNode.</color>");
         }
     }
 }

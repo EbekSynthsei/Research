@@ -8,59 +8,62 @@ using UnityEngine.UIElements;
 
 namespace LaniakeaCode.GraphSystem
 {
+    /// <summary>
+    /// Represents a node that handles graph events.
+    /// </summary>
     public class GraphEventNode : BaseNode
     {
         private GraphEvent graphEvent;
         private ObjectField objectField;
-        public GraphEvent GraphEvent { get => graphEvent; set => graphEvent = value; }
 
+        public GraphEvent GraphEvent { get => graphEvent; set => graphEvent = value; }
 
         public GraphEventNode()
         {
-
+            Debug.Log("<color=green>GraphEventNode created with default constructor.</color>");
         }
 
         /// <summary>
-        /// Building The Event Node. Refer To This To implement a Similar Object Field Node
+        /// Initializes a new instance of the <see cref="GraphEventNode"/> class.
         /// </summary>
-        /// <param name="_position"></param>
-        /// <param name="_editorWindow"></param>
-        /// <param name="_graphTreeView"></param>
+        /// <param name="_position">The position of the node.</param>
+        /// <param name="_editorWindow">The editor window.</param>
+        /// <param name="_graphTreeView">The graph tree view.</param>
         public GraphEventNode(Vector2 _position, GraphEditorWindow _editorWindow, GraphTreeView _graphTreeView)
         {
             editorWindow = _editorWindow;
             graphTreeView = _graphTreeView;
 
-            //Initializing
             title = "Graph Event";
             SetPosition(new Rect(_position, defaultNodeSize));
             nodeGUID = Guid.NewGuid().ToString();
 
-            //Adding Multi Input Single Output
             AddInputPort("Input", Port.Capacity.Multi);
             AddOutputPort("Output", Port.Capacity.Single);
 
-            //Setting The Object Field To Accept The Graph Event
             objectField = new ObjectField()
             {
                 objectType = typeof(GraphEvent),
                 allowSceneObjects = false,
                 value = graphEvent
             };
-            //Recording Changes On The Field
+
             objectField.RegisterValueChangedCallback(value =>
             {
                 graphEvent = objectField.value as GraphEvent;
+                Debug.Log("<color=blue>GraphEvent updated:</color> " + graphEvent);
             });
             objectField.SetValueWithoutNotify(graphEvent);
 
-            //Adding The ObjectField To Container
             mainContainer.Add(objectField);
+
+            Debug.Log("<color=green>GraphEventNode created at position: </color>" + _position);
         }
 
         public override void LoadValueIntoField()
         {
             objectField.SetValueWithoutNotify(graphEvent);
+            Debug.Log("<color=blue>GraphEventNode values loaded into field.</color>");
         }
     }
 }

@@ -31,6 +31,7 @@ public class Player : Entity
     public O_JumpState JumpState { get; private set; }
     public O_WallJumpState WallJumpState { get; private set; }
     public O_DashState DashState { get; private set; }
+    public O_InteractState InteractState { get; private set; }
     // Touching Wall
     public O_WallSlideState WallSlideState { get; private set; }
     public O_WallGrabState WallGrabState { get; private set; }
@@ -66,6 +67,7 @@ public class Player : Entity
         JumpState = new O_JumpState(this, stateMachine, "InAir", this);
         WallJumpState = new O_WallJumpState(this, stateMachine, "InAir", this);
         DashState = new O_DashState(this, stateMachine, "Dash", this);
+        InteractState = new O_InteractState(this, stateMachine, "Interact", this);
         // Touching Wall
         WallSlideState = new O_WallSlideState(this, stateMachine, "WallSlide", this);
         WallGrabState = new O_WallGrabState(this, stateMachine, "WallGrab", this);
@@ -73,7 +75,8 @@ public class Player : Entity
         // Attack
         PrimaryAttackState = new O_AttackState(this, stateMachine, "Attack", this);
         PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
-        SecondaryAttackState = new O_AttackState(this, stateMachine, "Attack", this);
+        SecondaryAttackState = new O_AttackState(this, stateMachine, "SecondaryAttack", this);
+        SecondaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.secondary]);
         stateMachine.Init(IdleState);
     }
 

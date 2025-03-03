@@ -15,7 +15,7 @@ public class AggressiveWeapon : Weapon
         }
         else
         {
-            Debug.LogError("Wrong Weapon Data");
+            Debug.LogError("Wrong Weapon Data", this);
         }
     }
     public override void AnimationActionTrigger()

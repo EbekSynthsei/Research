@@ -18,7 +18,7 @@ public class CORE : MonoBehaviour
         combatSenses = GetComponentInChildren<CombatSenses>();
         if (!movement || !collisionSenses || !combatSenses)
         {
-            Debug.LogError("Missing CoreComponent");
+            Debug.LogError("Missing CoreComponent", this);
         }
     }
 

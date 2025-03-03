@@ -2,10 +2,18 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../Re-Search-Sekaisen"
 		}
 	],
 	"settings": {
 		"vstuc.displayBackgroundProcesses": true,
 		"vstuc.refreshOnSave": true
+	},
+	"extensions": {
+		"recommendations": [
+			"visualstudiotoolsforunity.vstuc"
+		]
 	}
 }

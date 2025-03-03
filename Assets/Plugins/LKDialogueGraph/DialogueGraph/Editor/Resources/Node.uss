@@ -1,35 +1,42 @@
-.node #title{
-background-color : rgba(0, 63, 63, 205);
+.node #title {
+	background-color: rgba(173, 216, 230, 0.8);
 }
 
-.node #contents{
-background-color : rgba(20, 63, 63, 225);
+.node #contents {
+	background-color: rgba(173, 216, 230, 0.9);
 }
 
 .node #settings {
-margin-top: 8px;
-margin-bottom: 8px;
-margin-left: 16px;
-margin-right: 4px;
-padding-right: 4px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	margin-left: 16px;
+	margin-right: 4px;
+	padding-right: 4px;
+	background-color: rgba(173, 216, 230, 0.7);
 }
 
-.node #settings Label{
-win-width: 80px;
-}
-.node #settings TextField{
-margin: 5;
+.node #settings Label {
+	win-width: 80px;
+	color: rgba(0, 0, 139, 0.8);
 }
 
-.node.collapsed #settings{
-display:none;
-}
-.speakerPreview{
-	height : 200px;
-	width : 200px;
-	margin : auto;
+.node #settings TextField {
+	margin: 5px;
+	background-color: rgba(240, 248, 255, 0.8);
+	color: rgba(0, 0, 139, 0.8);
 }
 
-.PortName{
-	display:none;
+.node.collapsed #settings {
+	display: none;
+}
+
+.speakerPreview {
+	height: 200px;
+	width: 200px;
+	margin: auto;
+	background-color: rgba(173, 216, 230, 0.6);
+}
+
+.PortName {
+	display: none;
 }

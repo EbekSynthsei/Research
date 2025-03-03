@@ -19,11 +19,11 @@ MonoBehaviour:
     inputPortName: 
   startNodeDatas:
   - nodeGUID: 339ee509-efa8-448a-8eab-5d563b2c135e
-    position: {x: 179, y: 263}
+    position: {x: 199, y: 169}
   endNodeDatas: []
   dialogueNodeDatas:
   - nodeGUID: 938e4b57-4538-4d10-aaf3-154a92091f5a
-    position: {x: 395, y: 174}
+    position: {x: 438, y: 132}
     dialogueNodePorts:
     - PortGUID: d7d9457b-3b42-4be1-bb0a-ad921f92758e
       InputGuid: 

@@ -1,19 +1,22 @@
-.stateGraphTreeName
-{
-	background-color : rgba(0, 63, 63, 205);
-	padding-top :3px;
+.stateGraphTreeName {
+	background-color: rgba(173, 216, 230, 0.8);
+	padding-top: 3px;
 	padding-left: 5px;
 	padding-right: 5px;
+	color: rgba(0, 0, 139, 0.8);
 }
-.saveButton
-{
 
+.saveButton {
+	background-color: rgba(240, 248, 255, 0.8);
+	color: rgba(0, 0, 139, 0.8);
 }
-.loadButton
-{
 
+.loadButton {
+	background-color: rgba(240, 248, 255, 0.8);
+	color: rgba(0, 0, 139, 0.8);
 }
-.toolbarLanguage 
-{
-	background-color : rgba(0, 63, 63, 205);
+
+.toolbarLanguage {
+	background-color: rgba(173, 216, 230, 0.8);
+	color: rgba(0, 0, 139, 0.8);
 }

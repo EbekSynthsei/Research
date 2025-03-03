@@ -14,7 +14,7 @@ public class InputManager : Singleton<InputManager>
 
     public void Awake()
     {
-        Debug.Log("Awake InputManager");
+        Debug.Log("Awake InputManager", this);
         inputActions = new PlayerActionControls();
     }
 
