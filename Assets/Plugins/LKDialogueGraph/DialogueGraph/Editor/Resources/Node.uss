@@ -1,42 +1,42 @@
 .node #title {
-	background-color: rgba(173, 216, 230, 0.8);
+    background-color:  rgba(7, 7, 32, 0.8);
 }
 
 .node #contents {
-	background-color: rgba(173, 216, 230, 0.9);
+    background-color: rgba(255, 255, 255, 0.95); /* crisp white base */
 }
 
 .node #settings {
-	margin-top: 8px;
-	margin-bottom: 8px;
-	margin-left: 16px;
-	margin-right: 4px;
-	padding-right: 4px;
-	background-color: rgba(173, 216, 230, 0.7);
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 16px;
+    margin-right: 4px;
+    padding-right: 4px;
+    background-color: rgba(236, 240, 241, 0.9); /* soft neutral */
 }
 
 .node #settings Label {
-	win-width: 80px;
-	color: rgba(0, 0, 139, 0.8);
+    min-width: 80px;
+    color: rgba(00, 0, 0, 0.95); /* deep readable navy */
 }
 
 .node #settings TextField {
-	margin: 5px;
-	background-color: rgba(240, 248, 255, 0.8);
-	color: rgba(0, 0, 139, 0.8);
+    margin: 5px;
+    background-color: rgba(0, 0, 0, 0.95);  /* stand out input */
+    color: rgba(255, 255, 255, 0.95);
 }
 
 .node.collapsed #settings {
-	display: none;
+    display: none;
 }
 
 .speakerPreview {
-	height: 200px;
-	width: 200px;
-	margin: auto;
-	background-color: rgba(173, 216, 230, 0.6);
+    height: 200px;
+    width: 200px;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.95); /* consistent with settings */
 }
 
 .PortName {
-	display: none;
+    display: none;
 }
