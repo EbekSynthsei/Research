@@ -42,7 +42,7 @@ public class Player : Entity
     public O_AttackState SecondaryAttackState { get; private set; }
     #endregion
 
-    [SerializeField]
+    [field: SerializeField]
     public PlayerInventory Inventory { get; private set; }
 
     /// <summary>

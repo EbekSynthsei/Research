@@ -42,7 +42,7 @@ public class O_DashState : AbilityState
                     Time.timeScale = 1f;
                     StartTime = Time.time;
                     Core.movement.CheckIfShouldFlip(Mathf.RoundToInt(dashDirection.x));
-                    Core.movement.Rb.drag = Core.movement.dashStateData.drag;
+                    Core.movement.Rb.linearDamping = Core.movement.dashStateData.drag;
                     Core.movement.SetVelocity(Core.movement.dashStateData.dashVelocity, dashDirection);
                 }
             }
@@ -51,7 +51,7 @@ public class O_DashState : AbilityState
                 Core.movement.SetVelocity(Core.movement.dashStateData.dashVelocity, dashDirection);
                 if(Time.time >= StartTime + Core.movement.dashStateData.dashTime || isTouchingWall)
                 {
-                    Core.movement.Rb.drag = 0f;
+                    Core.movement.Rb.linearDamping = 0f;
                     isAbilityDone = true;
                     lastDashTime = Time.time;
                 }

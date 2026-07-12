@@ -102,8 +102,8 @@ public class Entity : MonoBehaviour
         Core.LogicUpdate();
         stateMachine.currentState.LogicUpdate();
 
-        Anim.SetFloat("YVelocity", Core.movement.Rb.velocity.y);
-        Anim.SetFloat("XVelocity", Mathf.Abs(Core.movement.Rb.velocity.x));
+        Anim.SetFloat("YVelocity", Core.movement.Rb.linearVelocity.y);
+        Anim.SetFloat("XVelocity", Mathf.Abs(Core.movement.Rb.linearVelocity.x));
 
         if (Time.time >= lastDamageTime + entityData.stunRecoveryTime)
         {

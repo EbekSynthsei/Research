@@ -34,7 +34,7 @@ public class Projectile : MonoBehaviour
 
         Rb.gravityScale = 0.0f;
 
-        Rb.velocity = transform.right * speed;
+        Rb.linearVelocity = transform.right * speed;
 
         isGravityOn = false;
 
@@ -47,7 +47,7 @@ public class Projectile : MonoBehaviour
             attackData.position = transform.position;
             if (isGravityOn)
             {
-                float angle = Mathf.Atan2(Rb.velocity.y, Rb.velocity.x)*Mathf.Rad2Deg;
+                float angle = Mathf.Atan2(Rb.linearVelocity.y, Rb.linearVelocity.x)*Mathf.Rad2Deg;
                 transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             }
         }
@@ -69,7 +69,7 @@ public class Projectile : MonoBehaviour
             {
                 hasHitGround = true;
                 Rb.gravityScale = 0.0f;
-                Rb.velocity = Vector2.zero;
+                Rb.linearVelocity = Vector2.zero;
             }
 
             if(Mathf.Abs(xShootPoint - transform.position.x)>= travelDistance && isGravityOn)

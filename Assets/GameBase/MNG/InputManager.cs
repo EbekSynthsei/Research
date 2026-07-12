@@ -10,7 +10,6 @@ public class InputManager : Singleton<InputManager>
 {
     public PlayerActionControls inputActions;
 
-    [SerializeField]
 
     public void Awake()
     {

@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LaniakeaCode.Events;
+using LaniakeaCode.GraphSystem;
 
 namespace LaniakeaCode.Utilities
 {
@@ -22,12 +22,16 @@ namespace LaniakeaCode.Utilities
         public float holdDuration;
         public bool holdInteract;
         public bool multipleUse;
+
+        [Header("Dialogue")]
+        public GraphTree dialogueGraph; // NEW: dialogo specifico per questo interactable
+
         [Header("Interaction Actions")]
         public List<ScriptableAction> scriptableActions;
+
         [Header("Interaction Events")]
         public BoolEvent scriptableEvent;
-        public virtual void Interact()
-        {
-        }
+
+        public virtual void Interact() { }
     }
 }

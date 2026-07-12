@@ -38,42 +38,42 @@ public class Movement : COREComponent
 
     public void LogicUpdate()
     {
-        CurrentVelocity = Rb.velocity;
+        CurrentVelocity = Rb.linearVelocity;
     }
     public virtual void SetVelocity(float velocity, Vector2 angle, int direction)
     {
         angle.Normalize();
         workVector.Set(angle.x * velocity * direction, angle.y * velocity);
-        Rb.velocity = workVector;
+        Rb.linearVelocity = workVector;
         CurrentVelocity = workVector;
     }
     public virtual void SetVelocity(float velocity, Vector2 direction)
     {
         workVector = direction * velocity;
-        Rb.velocity = workVector;
+        Rb.linearVelocity = workVector;
         CurrentVelocity = workVector;
     }
     public virtual void SetVelocityX(float velocity)
     {
         workVector.Set(velocity, CurrentVelocity.y);
-        Rb.velocity = workVector;
+        Rb.linearVelocity = workVector;
         CurrentVelocity = workVector;
     }
     public virtual void SetVelocityY(float velocity)
     {
         workVector.Set(CurrentVelocity.x, velocity);
-        Rb.velocity = workVector;
+        Rb.linearVelocity = workVector;
         CurrentVelocity = workVector;
     }
     public virtual void SetVelocityFacingDirection(float velocity)
     {
         workVector.Set(FacingDirection * velocity, CurrentVelocity.y);
-        Rb.velocity = workVector;
+        Rb.linearVelocity = workVector;
         CurrentVelocity = workVector;
     }
     public virtual void SetVelocityZero()
     {
-        Rb.velocity = Vector2.zero;
+        Rb.linearVelocity = Vector2.zero;
         CurrentVelocity = Vector2.zero;
     }
     public virtual void Flip()

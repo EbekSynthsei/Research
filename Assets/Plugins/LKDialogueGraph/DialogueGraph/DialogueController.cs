@@ -17,20 +17,44 @@ namespace LaniakeaCode.Utilities
         private DialogueNodeData currentDialogueNodeData;
         private DialogueNodeData lastDialogueNodeData;
 
+        private bool isDialogueActive;
+
         /// <summary>
         /// Initializes the dialogue controller.
         /// </summary>
         private void Awake()
         {
-            uIController = FindObjectOfType<UIController>();
+            uIController = FindAnyObjectByType<UIController>();
             audioSource = GetComponent<AudioSource>();
         }
 
         /// <summary>
-        /// Starts the UI panel for the dialogue.
+        /// Starts the dialogue UI panel with a specific graph, or the default one if none is provided.
         /// </summary>
-        public void StartUIPanel()
+        /// <param name="graph">The GraphTree to use for this dialogue instance. If null, uses the currently assigned graphTree.</param>
+        public void StartUIPanel(GraphTree graph = null)
         {
+            if (isDialogueActive)
+            {
+                Debug.LogWarning("Dialogue already active — ignoring new StartUIPanel call.", this);
+                return;
+            }
+
+            if (graph != null)
+                graphTree = graph;
+
+            if (graphTree == null || graphTree.startNodeDatas.Count == 0)
+            {
+                Debug.LogError("No valid GraphTree assigned to DialogueController.", this);
+                return;
+            }
+
+            // Reset dello stato tra dialoghi diversi — evita "GoBack"/"Repeat" sporchi
+            currentDialogueNodeData = null;
+            lastDialogueNodeData = null;
+
+            isDialogueActive = true;
+
             CheckNodeType(GetNextNode(graphTree.startNodeDatas[0]));
             uIController.ShowUI(true);
         }
@@ -38,7 +62,6 @@ namespace LaniakeaCode.Utilities
         /// <summary>
         /// Checks the type of the node and runs the appropriate method.
         /// </summary>
-        /// <param name="_baseNodeData">The base node data to check.</param>
         private void CheckNodeType(NodeData _baseNodeData)
         {
             switch (_baseNodeData)
@@ -60,19 +83,11 @@ namespace LaniakeaCode.Utilities
             }
         }
 
-        /// <summary>
-        /// Runs the start node.
-        /// </summary>
-        /// <param name="_nodeData">The start node data.</param>
         private void RunNode(StartNodeData _nodeData)
         {
             CheckNodeType(GetNextNode(graphTree.startNodeDatas[0]));
         }
 
-        /// <summary>
-        /// Runs the dialogue node.
-        /// </summary>
-        /// <param name="_nodeData">The dialogue node data.</param>
         private void RunNode(DialogueNodeData _nodeData)
         {
             if (currentDialogueNodeData != _nodeData)
@@ -80,36 +95,34 @@ namespace LaniakeaCode.Utilities
                 lastDialogueNodeData = currentDialogueNodeData;
                 currentDialogueNodeData = _nodeData;
             }
-            uIController.SetText(_nodeData.CharacterName, _nodeData.textBox_languages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
+
+            uIController.SetText(
+                _nodeData.CharacterName,
+                _nodeData.textBox_languages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
+
             uIController.SetImage(_nodeData.SpeakerImage, _nodeData.switchType);
-            audioSource.clip = _nodeData.audioClips_List.Find(audioclip => audioclip.LanguageType == LanguageController.Instance.Language).LanguageGenericType;
+
+            audioSource.clip = _nodeData.audioClips_List
+                .Find(audioclip => audioclip.LanguageType == LanguageController.Instance.Language).LanguageGenericType;
             audioSource.Play();
+
             MakeButtons(_nodeData.dialogueNodePorts);
         }
 
-        /// <summary>
-        /// Runs the graph event node.
-        /// </summary>
-        /// <param name="_nodeData">The graph event node data.</param>
         private void RunNode(GraphEventNodeData _nodeData)
         {
             if (_nodeData.graphEvent != null)
-            {
                 _nodeData.graphEvent.Raise();
-            }
+
             CheckNodeType(GetNextNode(_nodeData));
         }
 
-        /// <summary>
-        /// Runs the end node.
-        /// </summary>
-        /// <param name="_nodeData">The end node data.</param>
         private void RunNode(EndNodeData _nodeData)
         {
             switch (_nodeData.endNodeType)
             {
                 case EndNodeType.End:
-                    uIController.ShowUI(false);
+                    EndDialogue();
                     break;
                 case EndNodeType.Repeat:
                     CheckNodeType(GetNodeByGuid(currentDialogueNodeData.nodeGUID));
@@ -126,9 +139,17 @@ namespace LaniakeaCode.Utilities
         }
 
         /// <summary>
-        /// Creates buttons for the dialogue choices.
+        /// Cleanly ends the dialogue and resets internal state.
         /// </summary>
-        /// <param name="_dialogueNodePorts">The dialogue node ports.</param>
+        private void EndDialogue()
+        {
+            uIController.ShowUI(false);
+            audioSource.Stop();
+            currentDialogueNodeData = null;
+            lastDialogueNodeData = null;
+            isDialogueActive = false;
+        }
+
         private void MakeButtons(List<DialogueNodePort> _dialogueNodePorts)
         {
             List<string> texts = new List<string>();
@@ -136,7 +157,8 @@ namespace LaniakeaCode.Utilities
 
             foreach (DialogueNodePort nodePort in _dialogueNodePorts)
             {
-                texts.Add(nodePort.ChoiceText_List.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
+                texts.Add(nodePort.ChoiceText_List
+                    .Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
 
                 UnityAction tempAction = null;
                 tempAction += () =>

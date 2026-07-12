@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e59c5d80d3db814b999108cca52c8b7, type: 3}
+  m_Name: SecondTestDialogue
+  m_EditorClassIdentifier: Assembly-CSharp-firstpass::LaniakeaCode.GraphSystem.GraphTree
+  nodeLinks:
+  - baseNodeGUID: aca6487a-d991-4ba2-9d0c-efb5f05413e9
+    targetNodeGUID: e1e15168-381b-4a7d-8866-0f25e8a208af
+    outputPortName: 
+    inputPortName: 
+  - baseNodeGUID: e1e15168-381b-4a7d-8866-0f25e8a208af
+    targetNodeGUID: aff57aa5-a4b6-4a4a-bbee-b7079312bd85
+    outputPortName: 
+    inputPortName: 
+  - baseNodeGUID: e1e15168-381b-4a7d-8866-0f25e8a208af
+    targetNodeGUID: aff57aa5-a4b6-4a4a-bbee-b7079312bd85
+    outputPortName: 
+    inputPortName: 
+  startNodeDatas:
+  - nodeGUID: aca6487a-d991-4ba2-9d0c-efb5f05413e9
+    position: {x: 305, y: 387}
+  endNodeDatas:
+  - nodeGUID: aff57aa5-a4b6-4a4a-bbee-b7079312bd85
+    position: {x: 712, y: 464}
+    endNodeType: 0
+  dialogueNodeDatas:
+  - nodeGUID: e1e15168-381b-4a7d-8866-0f25e8a208af
+    position: {x: 454, y: 448}
+    dialogueNodePorts:
+    - PortGUID: 91fd078f-6de3-440b-908c-fdd6ebc9be6e
+      InputGuid: aff57aa5-a4b6-4a4a-bbee-b7079312bd85
+      OutputGuid: e1e15168-381b-4a7d-8866-0f25e8a208af
+      ChoiceText_List:
+      - LanguageType: 0
+        LanguageGenericType: Yes
+      - LanguageType: 1
+        LanguageGenericType: Choice1
+    - PortGUID: 0a51c9d1-f1a8-47de-ad68-331133860aec
+      InputGuid: aff57aa5-a4b6-4a4a-bbee-b7079312bd85
+      OutputGuid: e1e15168-381b-4a7d-8866-0f25e8a208af
+      ChoiceText_List:
+      - LanguageType: 0
+        LanguageGenericType: No
+      - LanguageType: 1
+        LanguageGenericType: Choice2
+    SpeakerImage: {fileID: 0}
+    switchType: 0
+    textBox_languages:
+    - LanguageType: 0
+      LanguageGenericType: 
+    - LanguageType: 1
+      LanguageGenericType: 
+    audioClips_List:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    CharacterName: WOW MA SUL SERIO
+  graphEventNodeDatas: []

@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using LaniakeaCode.Events;
-
 namespace LaniakeaCode.Utilities
 {
     public interface IInteractable
@@ -11,8 +6,9 @@ namespace LaniakeaCode.Utilities
         bool HoldInteract { get; }
         bool MultipleUse { get; }
         bool IsInteractable { get; }
-        bool AgentInInteractionArea();
-        void OnInteract();
-        void SetInteractionArea();
+
+        void OnInteract(Entity interactor);
+        void OnFocus(Entity interactor);
+        void OnLoseFocus(Entity interactor);
     }
 }

@@ -74,7 +74,7 @@ namespace LaniakeaCode.GraphSystem
         [OnOpenAsset(1)]
         public static bool ShowWindow(int instanceId, int line)
         {
-            UnityEngine.Object item = EditorUtility.InstanceIDToObject(instanceId);
+            UnityEngine.Object item = EditorUtility.EntityIdToObject(instanceId);
             //Check The Type Of The Asset Opened
             if (item is GraphTree)
             {

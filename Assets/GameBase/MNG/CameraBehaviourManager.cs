@@ -1,42 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using LaniakeaCode.Events;
+using Cinemachine;
 
 namespace LaniakeaCode.Utilities
 {
     public class CameraBehaviourManager : MonoBehaviour
     {
+        [Header("Cinemachine")]
+        [SerializeField] private CinemachineVirtualCamera poiCamera;
+        [SerializeField] private float defaultPOIReturnDelay = 2f;
 
         private Animator animator;
-
-        private bool mainCamera = false;
         private StringListener listener;
+        private BoolListener boolListener;
+        private CameraBehaviour currentBehaviour = CameraBehaviour.FollowPlayer;
+        private Coroutine poiCoroutine;
 
-        private BoolListener BoolListener;
         private void Awake()
         {
             animator = GetComponent<Animator>();
-            BoolListener = GetComponent<BoolListener>();
+            boolListener = GetComponent<BoolListener>();
             listener = GetComponent<StringListener>();
-            
         }
-        private void Start()
-        {
-            
-        }
-        private void Update()
-        {
-            
-        }
+
+        // Chiamato da EVS con stringa (compatibile con quello che hai)
         public void SwitchState(string behaviour)
         {
-            CameraBehaviour cameraBehaviour = Enum.TryParse<CameraBehaviour>(behaviour, true, out cameraBehaviour) ? cameraBehaviour : CameraBehaviour.FollowPlayer;
+            var parsed = Enum.TryParse<CameraBehaviour>(behaviour, true, out var result)
+                ? result
+                : CameraBehaviour.FollowPlayer;
+            SwitchState(parsed);
+        }
 
-            switch (cameraBehaviour)
+        public void SwitchState(CameraBehaviour behaviour)
+        {
+            if (currentBehaviour == behaviour) return;
+            currentBehaviour = behaviour;
+
+            switch (behaviour)
             {
                 case CameraBehaviour.FollowTarget:
                     animator.Play("Interactable Camera");
@@ -47,22 +49,32 @@ namespace LaniakeaCode.Utilities
                     break;
             }
         }
-        public void SwitchState(bool _mainCamera)
+
+        // Nuovo: focus su POI con target dinamico e ritorno automatico
+        public void FocusPOI(Transform target, float holdTime = -1f)
         {
+            if (poiCamera == null) return;
+            if (poiCoroutine != null) StopCoroutine(poiCoroutine);
 
-            Debug.LogWarning("Received" + _mainCamera);
-            if (mainCamera!= _mainCamera)
-            {
-                animator.Play("PlayerCamera");
-            }
-            else
-            {
-                animator.Play("Interactable Camera");
-            }
-            mainCamera = !mainCamera;
+            poiCamera.Follow = target;
+            poiCamera.LookAt = target;
+            SwitchState(CameraBehaviour.FollowTarget);
 
-            Debug.LogWarning("Received out" + mainCamera);
+            float duration = holdTime < 0 ? defaultPOIReturnDelay : holdTime;
+            poiCoroutine = StartCoroutine(ReturnToPlayerAfter(duration));
         }
 
+        // Chiamabile anche da EVS per ritorno manuale (es. fine dialogo)
+        public void ReturnToPlayer()
+        {
+            if (poiCoroutine != null) StopCoroutine(poiCoroutine);
+            SwitchState(CameraBehaviour.FollowPlayer);
+        }
+
+        private System.Collections.IEnumerator ReturnToPlayerAfter(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            ReturnToPlayer();
+        }
     }
 }
