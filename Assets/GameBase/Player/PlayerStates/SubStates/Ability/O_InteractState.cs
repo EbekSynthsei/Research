@@ -38,7 +38,6 @@ public class O_InteractState : AbilityState
 
     private void Interact()
     {
-        // Implement interaction logic here
-        Debug.Log("Interacting with object");
+        player.CurrentFocusedInteractable?.TryInteract();
     }
 }

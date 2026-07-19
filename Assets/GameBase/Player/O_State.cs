@@ -21,6 +21,7 @@ public class O_State : State
     protected bool JumpInput;
     protected bool DashInput;
     protected bool[] AttackInputs;
+    protected bool InteractInput;
 
     #endregion
 
@@ -103,6 +104,7 @@ public class O_State : State
         GetDashInput();
         GetGrabInput();
         GetAttackInput();
+        GetInteractInput();
     }
 
     /// <summary>
@@ -154,7 +156,13 @@ public class O_State : State
     {
         GrabInput = InputManager.Instance.GrabInput();
     }
-
+    /// <summary>
+    /// Retrieves interact input value.
+    /// </summary>
+    public virtual void GetInteractInput()
+    {
+        InteractInput = InputManager.Instance.OnInteractionButtonPressed();
+    }
     /// <summary>
     /// Resets the jump input value.
     /// </summary>
@@ -164,7 +172,11 @@ public class O_State : State
     /// Resets the dash input value.
     /// </summary>
     public virtual void UseDashInput() => DashInput = false;
-
+    
+    /// <summary>
+    /// Resets the interact input value.
+    /// </summary>
+    public virtual void UseInteractInput() => InteractInput = false;
     /// <summary>
     /// Logs state debug information.
     /// </summary>
@@ -190,7 +202,8 @@ public class O_State : State
                   $"Jump Input: {JumpInput}\n" +
                   $"Dash Input: {DashInput}\n" +
                   $"Primary Attack Input: {AttackInputs[0]}\n" +
-                  $"Secondary Attack Input: {AttackInputs[1]}");
+                  $"Secondary Attack Input: {AttackInputs[1]}" +
+                  $"Interact Input: {InteractInput}");
     }
 }
 

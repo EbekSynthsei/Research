@@ -31,7 +31,12 @@ public class O_IdleState : GroundedState
         base.LogicUpdate();
         if (!isExitingState) 
         {
-            if (xInput != 0)
+            if (InteractInput && player.CurrentFocusedInteractable != null)
+            {
+                UseInteractInput();
+                stateMachine.ChangeState(player.InteractState);
+            }
+            else if (xInput != 0)
             {
                 stateMachine.ChangeState(player.MoveState);
             }
