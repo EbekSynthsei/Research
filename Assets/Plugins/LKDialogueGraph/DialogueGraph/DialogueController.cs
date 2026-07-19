@@ -34,6 +34,7 @@ namespace LaniakeaCode.Utilities
         /// <param name="graph">The GraphTree to use for this dialogue instance. If null, uses the currently assigned graphTree.</param>
         public void StartUIPanel(GraphTree graph = null)
         {
+            Debug.Log("DialogueController: StartUIPanel called", this);
             if (isDialogueActive)
             {
                 Debug.LogWarning("Dialogue already active — ignoring new StartUIPanel call.", this);
@@ -43,6 +44,7 @@ namespace LaniakeaCode.Utilities
             if (graph != null)
                 graphTree = graph;
 
+            Debug.Log("DialogueController: graphTree assigned. Is null? " + (graphTree == null), this);
             if (graphTree == null || graphTree.startNodeDatas.Count == 0)
             {
                 Debug.LogError("No valid GraphTree assigned to DialogueController.", this);
@@ -111,9 +113,7 @@ namespace LaniakeaCode.Utilities
 
         private void RunNode(GraphEventNodeData _nodeData)
         {
-            if (_nodeData.graphEvent != null)
-                _nodeData.graphEvent.Raise();
-
+            _nodeData.GraphEvent?.Raise();
             CheckNodeType(GetNextNode(_nodeData));
         }
 

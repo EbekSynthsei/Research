@@ -145,7 +145,8 @@ namespace LaniakeaCode.GraphSystem
         /// <summary>
         /// Graph event associated with the node.
         /// </summary>
-        public GraphEvent graphEvent;
+        [SerializeField] public ScriptableObject graphEventAsset;
+        public IRaisable GraphEvent => graphEventAsset as IRaisable;
     }
 
     /// <summary>

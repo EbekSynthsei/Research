@@ -72,14 +72,23 @@ namespace LaniakeaCode.Utilities
         }
 
         // ── IInteractable — punto unico di ingresso, niente più duplicati ──
-        public void OnInteract(Entity interactor)
+       public void OnInteract(Entity interactor)
         {
-            if (!isInteractable || interactor != currentInteractor) return;
+            Debug.Log("InteractableBase: OnInteract called", this);
+            if (!isInteractable || interactor != currentInteractor)
+            {
+                Debug.Log("InteractableBase: OnInteract returning early - isInteractable=" + isInteractable + ", interactor matches current=" + (interactor == currentInteractor), this);
+                return;
+            }
 
             interactionData.Interact();
 
+            foreach (var action in interactionData.scriptableActions)
+                action?.PerformAction(interactor.gameObject, gameObject);
+
             if (interactionData.dialogueGraph != null)
             {
+                Debug.Log("InteractableBase: Starting dialogue with graph", this);
                 var dc = FindAnyObjectByType<DialogueController>();
                 dc?.StartUIPanel(interactionData.dialogueGraph);
             }
@@ -90,11 +99,14 @@ namespace LaniakeaCode.Utilities
                 isInteractable = false;
         }
 
-        public void OnFocus(Entity interactor)
+       public void OnFocus(Entity interactor)
         {
             currentInteractor = interactor;
             playerInRange = true;
             ShowInteractionHint(true);
+
+            if (interactor is Player p)
+                p.CurrentFocusedInteractable = this;
 
             if (cameraManager != null && focusTarget != null)
                 cameraManager.FocusPOI(focusTarget.transform);
@@ -107,18 +119,30 @@ namespace LaniakeaCode.Utilities
             currentInteractor = null;
             ShowInteractionHint(false);
 
+            if (interactor is Player p && p.CurrentFocusedInteractable == this)
+                p.CurrentFocusedInteractable = null;
+
             cameraManager?.ReturnToPlayer();
         }
 
         // ── Trigger fisico — sostituisce il polling in Update ──
         private void OnTriggerEnter2D(Collider2D other)
         {
+            Debug.Log("InteractableBase: OnTriggerEnter2D called", this);
+            if (other.TryGetComponent<Entity>(out var entity))
+                OnFocus(entity);
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            Debug.Log("InteractableBase: OnTriggerStay2D called", this);
             if (other.TryGetComponent<Entity>(out var entity))
                 OnFocus(entity);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            Debug.Log("InteractableBase: OnTriggerExit2D called", this);
             if (other.TryGetComponent<Entity>(out var entity))
                 OnLoseFocus(entity);
         }
@@ -126,8 +150,12 @@ namespace LaniakeaCode.Utilities
         // Chiamato dal PlayerInputHandler quando preme il tasto interact
         public void TryInteract()
         {
+            Debug.Log("InteractableBase: TryInteract called. playerInRange=" + playerInRange + ", currentInteractor != null=" + (currentInteractor != null), this);
             if (playerInRange && currentInteractor != null)
+            {
+                Debug.Log("InteractableBase: Calling OnInteract", this);
                 OnInteract(currentInteractor);
+            }
         }
 
         public void ShowInteractionHint(bool shouldShow)

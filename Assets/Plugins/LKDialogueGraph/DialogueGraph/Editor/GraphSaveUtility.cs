@@ -253,8 +253,8 @@ namespace LaniakeaCode.GraphSystem
                 .GetPosition()
                 .position,
 
-                graphEvent = _node
-                .GraphEvent
+                graphEventAsset = _node
+                .GraphEventAsset
             };
             return nodeData;
         }
@@ -321,13 +321,12 @@ namespace LaniakeaCode.GraphSystem
                 tempNode
                     .NodeGUID = nodeData.nodeGUID;
                 tempNode
-                    .GraphEvent = nodeData.graphEvent;
+                    .GraphEventAsset = nodeData.graphEventAsset;
 
                 tempNode
                     .LoadValueIntoField();
                 graphView
                     .AddElement(tempNode);
-
             }
 
             //Graph node

@@ -45,7 +45,7 @@ public class Entity : MonoBehaviour
     [SerializeField]
     [ExposedScriptableObject]
     private EntityData entityData;
-
+    public InteractableBase CurrentFocusedInteractable { get; set; }
     private float currentStunResistance;
     private float lastDamageTime;
     private float currentHealth;

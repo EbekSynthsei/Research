@@ -21,6 +21,8 @@ namespace LaniakeaCode.GraphSystem
         /// <returns>The node data with the specified GUID.</returns>
         protected NodeData GetNodeByGuid(string _targetNodeGuid)
         {
+            Debug.Log("GraphDataParser: GetNodeByGuid called with guid=" + _targetNodeGuid, this);
+            Debug.Log("GraphDataParser: AllNodeDatas count = " + graphTree.AllNodeDatas.Count, this);
             return graphTree
                 .AllNodeDatas
                 .Find(node => node

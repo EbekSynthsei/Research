@@ -104,4 +104,4 @@ MonoBehaviour:
   graphEventNodeDatas:
   - nodeGUID: 46f5f038-27f8-445f-b8b9-ca01c9d75440
     position: {x: 710, y: 180}
-    graphEvent: {fileID: 0}
+    graphEventAsset: {fileID: 11400000, guid: 10192c389fe36ab43a20baeb38c7853f, type: 2}

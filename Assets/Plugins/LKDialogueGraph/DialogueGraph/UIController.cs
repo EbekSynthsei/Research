@@ -51,6 +51,12 @@ namespace LaniakeaCode.Utilities {
         //Setting a bool to activate or deactivate the UI Panel
         public void ShowUI(bool _show)
         {
+            Debug.Log("UIController: ShowUI called with show=" + _show + ", referenceUI=null?" + (referenceUI == null), this);
+            if (referenceUI == null)
+            {
+                Debug.LogError("UIController: referenceUI is null!", this);
+                return;
+            }
             referenceUI
                 .SetActive(_show);
         }
