@@ -121,4 +121,12 @@ public class InputManager : Singleton<InputManager>
     public bool OnInteractionButtonPressed(){
         return inputActions.GamePlay.Interact.triggered;
     }
+
+    public void SetGameplayInputEnabled(bool enabled)
+{
+    if (enabled)
+        inputActions.GamePlay.Enable();
+    else
+        inputActions.GamePlay.Disable();
+}
 }

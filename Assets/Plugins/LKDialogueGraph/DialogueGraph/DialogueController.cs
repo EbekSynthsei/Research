@@ -56,7 +56,7 @@ namespace LaniakeaCode.Utilities
             lastDialogueNodeData = null;
 
             isDialogueActive = true;
-
+        
             CheckNodeType(GetNextNode(graphTree.startNodeDatas[0]));
             uIController.ShowUI(true);
         }

@@ -100,6 +100,9 @@ public class Entity : MonoBehaviour
     public virtual void Update()
     {
         Core.LogicUpdate();
+        
+        CheckAnyStateTransitions();
+
         stateMachine.currentState.LogicUpdate();
 
         Anim.SetFloat("YVelocity", Core.movement.Rb.linearVelocity.y);
@@ -117,5 +120,13 @@ public class Entity : MonoBehaviour
     public virtual void FixedUpdate()
     {
         stateMachine.currentState.PhysicsUpdate();
+    }
+
+    /// <summary>
+    /// Checks conditions that can interrupt the current state regardless of which state is active.
+    /// Override per tipo di Entity (Player, IA) per aggiungere condizioni specifiche di interrupt.
+    /// </summary>
+    protected virtual void CheckAnyStateTransitions()
+    {
     }
 }

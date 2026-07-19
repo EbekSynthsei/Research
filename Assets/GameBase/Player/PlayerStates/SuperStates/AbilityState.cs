@@ -5,6 +5,7 @@ using UnityEngine;
 public class AbilityState : O_State
 {
     protected bool isAbilityDone;
+    public override bool CanBeInterrupted() => isAbilityDone;
     public AbilityState(Entity _entity, FSM _stateMachine, string _animBoolName, Player _player) : base(_entity, _stateMachine, _animBoolName, _player)
     {
     }

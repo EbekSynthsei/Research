@@ -60,6 +60,7 @@ public class O_AttackState : AbilityState
     {
         base.AnimationFinishTrigger();
         isAbilityDone = true;
+        Debug.Log("<color=orange>O_AttackState: AnimationFinishTrigger called, isAbilityDone=true</color>", entity);
     }
     #endregion
 }

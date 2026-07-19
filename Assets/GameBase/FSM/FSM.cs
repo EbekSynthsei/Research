@@ -29,4 +29,16 @@ public class FSM
         currentState = newState;
         currentState.Enter();
     }
+
+    /// <summary>
+    /// Attempts an Any-State transition: cambia stato solo se la condizione è vera
+    /// E lo stato corrente permette di essere interrotto in questo momento.
+    /// </summary>
+    /// <param name="interruptState">Lo stato di destinazione se l'interrupt ha successo.</param>
+    /// <param name="condition">La condizione che, se vera, richiede l'interrupt.</param>
+    public void TryInterrupt(State interruptState, System.Func<bool> condition)
+    {
+        if (condition() && currentState.CanBeInterrupted())
+            ChangeState(interruptState);
+    }
 }

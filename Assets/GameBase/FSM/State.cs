@@ -91,7 +91,12 @@ public class State
     { 
         isAnimationFinished = true; 
     }
-
+    /// <summary>
+    /// Determines whether this state can currently be interrupted by an Any-State transition.
+    /// Default true — override in stati/SuperStates che necessitano di una finestra di "commitment".
+    /// </summary>
+    public virtual bool CanBeInterrupted() => true;
+    
     /// <summary>
     /// Logs state debug information.
     /// </summary>

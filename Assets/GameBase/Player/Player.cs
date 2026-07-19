@@ -87,4 +87,11 @@ public class Player : Entity
     {
         base.Update();
     }
+
+    protected override void CheckAnyStateTransitions()
+    {
+        stateMachine.TryInterrupt(InteractState, () =>
+            InputManager.Instance.OnInteractionButtonPressed()
+            && CurrentFocusedInteractable != null);
+    }
 }
