@@ -1,9 +1,11 @@
 {
 	"folders": [
 		{
+			"name": "🎮 Research (Unity)",
 			"path": "."
 		},
 		{
+			"name": "🔬 Re-Search-Sekaisen",
 			"path": "../Re-Search-Sekaisen"
 		}
 	],
@@ -13,7 +15,10 @@
 	},
 	"extensions": {
 		"recommendations": [
-			"visualstudiotoolsforunity.vstuc"
+			"visualstudiotoolsforunity.vstuc",
+			"github.copilot",
+			"github.copilot-chat",
+			"ollama.ollama"
 		]
 	}
 }

@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44aac2bf92c98746967fbec0ea1fd1d, type: 3}
   m_Name: Interactable Data
   m_EditorClassIdentifier: 
-  interactionName: 
+  interactionName: Testing Dialogue
   validAgents:
     serializedVersion: 2
-    m_Bits: 0
-  interactionAreaRadius: 0
+    m_Bits: 64
+  interactionAreaRadius: 0.6
+  focusAreaRadius: 1
+  focusCenter: {fileID: 0}
   holdDuration: 0
   holdInteract: 0
   multipleUse: 0
+  dialogueGraph: {fileID: 11400000, guid: 4085ae0d53f96854aa3310fec5d89bc7, type: 2}
+  scriptableActions: []
+  scriptableEvent: {fileID: 0}

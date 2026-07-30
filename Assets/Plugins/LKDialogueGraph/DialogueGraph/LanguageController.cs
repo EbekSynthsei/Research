@@ -21,10 +21,11 @@ public class LanguageController : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
+            Debug.Log($"<color=magenta>LanguageController: Instance assigned. Language={language}</color>", this);
         }
         else
         {
+            Debug.Log("<color=red>LanguageController: duplicate found, destroying this instance.</color>", this);
             Destroy(gameObject);
         }
     }

@@ -13,7 +13,12 @@ namespace LaniakeaCode.Utilities
     {
         [SerializeField] private UIController uIController;
         [SerializeField] private AudioSource audioSource;
+        [Header("Dialogue Lifecycle Events")]
+        [SerializeField] private ScriptableObject onDialogueStartedAsset;
+        [SerializeField] private ScriptableObject onDialogueEndedAsset;
 
+        private IRaisable OnDialogueStarted => onDialogueStartedAsset as IRaisable;
+        private IRaisable OnDialogueEnded => onDialogueEndedAsset as IRaisable;
         private DialogueNodeData currentDialogueNodeData;
         private DialogueNodeData lastDialogueNodeData;
 
@@ -24,7 +29,6 @@ namespace LaniakeaCode.Utilities
         /// </summary>
         private void Awake()
         {
-            uIController = FindAnyObjectByType<UIController>();
             audioSource = GetComponent<AudioSource>();
         }
 
@@ -56,7 +60,7 @@ namespace LaniakeaCode.Utilities
             lastDialogueNodeData = null;
 
             isDialogueActive = true;
-        
+            OnDialogueStarted?.Raise();
             CheckNodeType(GetNextNode(graphTree.startNodeDatas[0]));
             uIController.ShowUI(true);
         }
@@ -98,6 +102,8 @@ namespace LaniakeaCode.Utilities
                 currentDialogueNodeData = _nodeData;
             }
 
+            Debug.Log($"<color=orange>Pre-check: LanguageController.Instance is null? " +
+                    $"{LanguageController.Instance == null}</color>", this);
             uIController.SetText(
                 _nodeData.CharacterName,
                 _nodeData.textBox_languages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
@@ -148,6 +154,7 @@ namespace LaniakeaCode.Utilities
             currentDialogueNodeData = null;
             lastDialogueNodeData = null;
             isDialogueActive = false;
+            OnDialogueEnded?.Raise();
         }
 
         private void MakeButtons(List<DialogueNodePort> _dialogueNodePorts)

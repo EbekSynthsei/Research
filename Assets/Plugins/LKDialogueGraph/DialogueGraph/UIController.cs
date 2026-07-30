@@ -1,20 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace LaniakeaCode.Utilities {
+namespace LaniakeaCode.Utilities
+{
+    /// <summary>
+    /// Controls the dialogue UI panel.
+    /// NON è un Singleton: resta un componente normale, referenziato via Inspector
+    /// da DialogueController (che invece è Singleton, vedi GraphDataParser<T>).
+    /// Refactor: bottoni dinamici (nessun limite fisso), TextMeshPro invece di Text legacy,
+    /// layout non centrato sullo schermo per evitare sovrapposizioni.
+    /// </summary>
     public class UIController : MonoBehaviour
     {
+        [Header("Panel Root")]
+        [SerializeField] private GameObject referenceUI;
 
-        //Adding References, Serializing for Checks
-        [SerializeField]
-        private GameObject referenceUI;
-
-        [Header("Text")]
-        [SerializeField] private Text panelNameText;
-        [SerializeField] private Text panelTextBoxText;
+        [Header("Text (TMP)")]
+        [SerializeField] private TextMeshProUGUI panelNameText;
+        [SerializeField] private TextMeshProUGUI panelTextBoxText;
 
         [Header("Image")]
         [SerializeField] private Image leftImage;
@@ -22,33 +29,25 @@ namespace LaniakeaCode.Utilities {
         [SerializeField] private Image rightImage;
         [SerializeField] private GameObject rightImageGO;
 
-        [Header("Buttons")]
-        [SerializeField] private Button button;
-        [SerializeField] private Text buttonText;
-        [SerializeField] private Button button1;
-        [SerializeField] private Text buttonText1;
-        [SerializeField] private Button button2;
-        [SerializeField] private Text buttonText2;
-        [SerializeField] private Button button3;
-        [SerializeField] private Text buttonText3;
+        [Header("Choices — Dynamic List")]
+        [Tooltip("Prefab con Button + TextMeshProUGUI (DialogueChoiceButton.cs). " +
+                 "Nessun limite al numero di scelte: uno per ogni DialogueNodePort del nodo.")]
+        [SerializeField] private DialogueChoiceButton choiceButtonPrefab;
 
-        List<Button> buttons = new List<Button>();
-        private List<Text> buttonTexts = new List<Text>();
+        [Tooltip("Deve avere un LayoutGroup (Vertical consigliato) + ContentSizeFitter " +
+                 "(Vertical Fit = Preferred Size) per adattarsi dinamicamente al numero di bottoni.")]
+        [SerializeField] private RectTransform choicesContainer;
+
+        private readonly List<DialogueChoiceButton> spawnedButtons = new List<DialogueChoiceButton>();
 
         private void Awake()
         {
             ShowUI(false);
-            buttons.Add(button);
-            buttonTexts.Add(buttonText);
-            buttons.Add(button1);
-            buttonTexts.Add(buttonText1);
-            buttons.Add(button2);
-            buttonTexts.Add(buttonText2);
-            buttons.Add(button3);
-            buttonTexts.Add(buttonText3);
         }
 
-        //Setting a bool to activate or deactivate the UI Panel
+        /// <summary>
+        /// Setting a bool to activate or deactivate the UI Panel.
+        /// </summary>
         public void ShowUI(bool _show)
         {
             Debug.Log("UIController: ShowUI called with show=" + _show + ", referenceUI=null?" + (referenceUI == null), this);
@@ -57,18 +56,16 @@ namespace LaniakeaCode.Utilities {
                 Debug.LogError("UIController: referenceUI is null!", this);
                 return;
             }
-            referenceUI
-                .SetActive(_show);
+            referenceUI.SetActive(_show);
         }
 
-        //Set the text of the referenced objects
+        /// <summary>
+        /// Set the text of the referenced objects.
+        /// </summary>
         public void SetText(string _name, string _text)
         {
-            panelNameText
-                .text = _name;
-
-            panelTextBoxText
-                .text = _text;
+            panelNameText.text = _name;
+            panelTextBoxText.text = _text;
         }
 
         public void SetImage(Sprite _image, SimplSwitchType simplSwitch)
@@ -76,43 +73,52 @@ namespace LaniakeaCode.Utilities {
             leftImageGO.SetActive(false);
             rightImageGO.SetActive(false);
 
-            if(_image != null)
+            if (_image != null)
             {
-                if(simplSwitch == SimplSwitchType.On)
+                if (simplSwitch == SimplSwitchType.On)
                 {
-                    leftImage
-                        .sprite = _image;
-                    leftImageGO
-                        .SetActive(true);
+                    leftImage.sprite = _image;
+                    leftImageGO.SetActive(true);
                 }
                 else
                 {
-                    rightImage
-                        .sprite = _image;
-                    rightImageGO
-                        .SetActive(true);
+                    rightImage.sprite = _image;
+                    rightImageGO.SetActive(true);
                 }
             }
         }
 
+        /// <summary>
+        /// Popola dinamicamente i bottoni di scelta: uno per ogni testo/azione passati,
+        /// senza limite massimo. Distrugge e ricrea i bottoni ad ogni nodo per evitare
+        /// listener residui da nodi precedenti.
+        /// </summary>
         public void SetButtons(List<string> _buttonTexts, List<UnityAction> _unityActions)
         {
-            buttons
-                .ForEach(button => button.gameObject.SetActive(false));
+            ClearButtons();
+
+            if (choiceButtonPrefab == null || choicesContainer == null)
+            {
+                Debug.LogError("UIController: choiceButtonPrefab o choicesContainer non assegnati!", this);
+                return;
+            }
 
             for (int i = 0; i < _buttonTexts.Count; i++)
             {
-                buttonTexts[i]
-                    .text = _buttonTexts[i];
-                buttons[i]
-                    .gameObject
-                    .SetActive(true);
-                buttons[i]
-                    .onClick = new Button.ButtonClickedEvent();
-                buttons[i]
-                    .onClick
-                    .AddListener(_unityActions[i]);
+                DialogueChoiceButton instance = Instantiate(choiceButtonPrefab, choicesContainer);
+                instance.Setup(_buttonTexts[i], _unityActions[i]);
+                spawnedButtons.Add(instance);
             }
+        }
+
+        private void ClearButtons()
+        {
+            foreach (var b in spawnedButtons)
+            {
+                if (b != null)
+                    Destroy(b.gameObject);
+            }
+            spawnedButtons.Clear();
         }
     }
 }

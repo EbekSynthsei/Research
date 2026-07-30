@@ -25,8 +25,32 @@ namespace LaniakeaCode.Utilities
         [SerializeField] private GameObject focusTarget;
 
         [Header("Ui For Interaction Tooltip")]
-        [SerializeField] private RectTransform uiElement;
+        [Tooltip("Prefab world-space con Canvas (Render Mode = World Space) + Image (frame) " +
+                 "+ TextMeshProUGUI (es. \"E\" o \"Interact\"). Instanziato come figlio del " +
+                 "focusTarget, così segue l'oggetto senza bisogno di codice di posizionamento manuale.")]
+        [SerializeField] private GameObject interactionTooltipPrefab;
 
+        [Tooltip("Offset locale del tooltip rispetto al focusTarget (es. sopra la testa dell'NPC).")]
+        [SerializeField] private Vector3 tooltipOffset = new Vector3(0f, 1.5f, 0f);
+
+        private GameObject tooltipInstance;
+
+        // In Awake(), dopo SetFocusTarget(), istanzia il tooltip (disattivato):
+        private void SetupTooltip()
+        {
+            if (interactionTooltipPrefab == null) return;
+
+            tooltipInstance = Instantiate(interactionTooltipPrefab, focusTarget.transform);
+            tooltipInstance.transform.localPosition = tooltipOffset;
+            tooltipInstance.SetActive(false);
+        }
+
+        public void ShowInteractionHint(bool shouldShow)
+        {
+            if (tooltipInstance == null) return;
+            tooltipInstance.SetActive(shouldShow);
+        }
+    
         public float HoldDuration => interactionData.holdDuration;
         public bool HoldInteract => interactionData.holdInteract;
         public bool MultipleUse => interactionData.multipleUse;
@@ -37,6 +61,7 @@ namespace LaniakeaCode.Utilities
             ValidateInteractable();
             SetInteractionArea();
             SetFocusTarget();
+            SetupTooltip();
             SetFocusArea();
         }
 
@@ -44,7 +69,7 @@ namespace LaniakeaCode.Utilities
         {
             if (interactionData == null)
                 Debug.LogError("Nessuna Interazione", this);
-            if (uiElement == null)
+            if (interactionTooltipPrefab == null)
                 Debug.LogError("Nessuna UI D'Interazione", this);
         }
 
@@ -72,7 +97,7 @@ namespace LaniakeaCode.Utilities
         }
 
         // ── IInteractable — punto unico di ingresso, niente più duplicati ──
-       public void OnInteract(Entity interactor)
+        public void OnInteract(Entity interactor)
         {
             Debug.Log("InteractableBase: OnInteract called", this);
             if (!isInteractable || interactor != currentInteractor)
@@ -88,7 +113,7 @@ namespace LaniakeaCode.Utilities
 
             if (interactionData.dialogueGraph != null)
             {
-                Debug.Log("InteractableBase: Starting dialogue with graph", this);
+                Debug.Log("InteractableBase: Starting dialogue with graph : " + interactionData.dialogueGraph.name, this);
                 var dc = FindAnyObjectByType<DialogueController>();
                 dc?.StartUIPanel(interactionData.dialogueGraph);
             }
@@ -99,7 +124,7 @@ namespace LaniakeaCode.Utilities
                 isInteractable = false;
         }
 
-       public void OnFocus(Entity interactor)
+        public void OnFocus(Entity interactor)
         {
             currentInteractor = interactor;
             playerInRange = true;
@@ -156,13 +181,6 @@ namespace LaniakeaCode.Utilities
                 Debug.Log("InteractableBase: Calling OnInteract", this);
                 OnInteract(currentInteractor);
             }
-        }
-
-        public void ShowInteractionHint(bool shouldShow)
-        {
-            if (uiElement == null) return;
-            uiElement.gameObject.SetActive(shouldShow);
-            // TODO: delegare posizionamento a un UI Manager dedicato
         }
 
 #if UNITY_EDITOR

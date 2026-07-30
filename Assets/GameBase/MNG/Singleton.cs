@@ -31,7 +31,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
             return _instance;
         }
     }
-
+    
     private void OnDestroy()
     {
         if (_instance == this)

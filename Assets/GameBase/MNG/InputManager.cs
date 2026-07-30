@@ -97,6 +97,10 @@ public class InputManager : Singleton<InputManager>
     /// <returns>True if primary attack input is pressed, otherwise false.</returns>
     public bool OnPrimaryAttackPressed()
     {
+        if (UnityEngine.EventSystems.EventSystem.current != null &&
+        UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        return false;
+
         return inputActions.GamePlay.PrimaryAttack.triggered;
     }
 
@@ -123,10 +127,10 @@ public class InputManager : Singleton<InputManager>
     }
 
     public void SetGameplayInputEnabled(bool enabled)
-{
-    if (enabled)
-        inputActions.GamePlay.Enable();
-    else
-        inputActions.GamePlay.Disable();
-}
+    {
+        if (enabled)
+            inputActions.GamePlay.Enable();
+        else
+            inputActions.GamePlay.Disable();
+    }
 }
