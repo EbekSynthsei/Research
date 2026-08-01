@@ -75,7 +75,12 @@ public class Entity : MonoBehaviour
     /// </summary>
     private void OnValidate()
     {
-        Debug.Log($"<color=lightgreen>{nameof(Entity)} ({gameObject.name}): Validate called</color>");
+        #if UNITY_EDITOR
+        if (entityData != null)
+        {
+            EntityTypeValidator.Validate(gameObject, entityData.entityType);
+        }
+        #endif
     }
 
     /// <summary>

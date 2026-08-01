@@ -157,6 +157,21 @@ namespace LaniakeaCode.Utilities
             OnDialogueEnded?.Raise();
         }
 
+        /// <summary>
+        /// Forces the dialogue to close immediately (used when player leaves interaction area).
+        /// </summary>
+        public void ForceClose()
+        {
+            if (!isDialogueActive) return;
+
+            uIController.ShowUI(false);
+            audioSource?.Stop();
+            currentDialogueNodeData = null;
+            lastDialogueNodeData = null;
+            isDialogueActive = false;
+            OnDialogueEnded?.Raise();
+        }
+
         private void MakeButtons(List<DialogueNodePort> _dialogueNodePorts)
         {
             List<string> texts = new List<string>();

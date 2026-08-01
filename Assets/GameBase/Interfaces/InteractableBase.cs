@@ -148,6 +148,15 @@ namespace LaniakeaCode.Utilities
                 p.CurrentFocusedInteractable = null;
 
             cameraManager?.ReturnToPlayer();
+
+            // Close and reset active dialogue when player leaves interaction area
+            CloseActiveDialogue();
+        }
+
+        private void CloseActiveDialogue()
+        {
+            var dc = FindAnyObjectByType<DialogueController>();
+            dc?.ForceClose();
         }
 
         // ── Trigger fisico — sostituisce il polling in Update ──
