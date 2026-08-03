@@ -15,4 +15,5 @@ EditorBuildSettings:
     path: Assets/Scenes/SecondScene.unity
     guid: f78110dc1c8bf8c4e912d847e704f0c1
   m_configObjects:
+    com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 18c07e46d7256ea4096a581b745b7b7a, type: 2}
