@@ -21,11 +21,6 @@ public class Entity : MonoBehaviour
     public Animator Anim { get; private set; }
 
     /// <summary>
-    /// Gets the attack FSM component of the entity.
-    /// </summary>
-    public AttackToFSM AttackFSM { get; private set; }
-
-    /// <summary>
     /// Gets the animation to FSM component of the entity.
     /// </summary>
     public AnimToFSM AnimToFSM { get; private set; }
@@ -40,11 +35,11 @@ public class Entity : MonoBehaviour
     /// </summary>
     public bool EnableStateDebug;
 
-    // This Is A generic container for the data.
     [Header("Data")]
     [SerializeField]
     [ExposedScriptableObject]
     private EntityData entityData;
+
     public InteractableBase CurrentFocusedInteractable { get; set; }
     private float currentStunResistance;
     private float lastDamageTime;
@@ -75,12 +70,12 @@ public class Entity : MonoBehaviour
     /// </summary>
     private void OnValidate()
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         if (entityData != null)
         {
             EntityTypeValidator.Validate(gameObject, entityData.entityType);
         }
-        #endif
+#endif
     }
 
     /// <summary>
@@ -93,7 +88,6 @@ public class Entity : MonoBehaviour
 
         Anim = transform.GetComponent<Animator>();
         AnimToFSM = transform.GetComponent<AnimToFSM>();
-        AttackFSM = transform.GetComponent<AttackToFSM>();
 
         currentStunResistance = entityData.stunResistance;
         isDead = false;
@@ -105,9 +99,7 @@ public class Entity : MonoBehaviour
     public virtual void Update()
     {
         Core.LogicUpdate();
-        
         CheckAnyStateTransitions();
-
         stateMachine.currentState.LogicUpdate();
 
         Anim.SetFloat("YVelocity", Core.movement.Rb.linearVelocity.y);

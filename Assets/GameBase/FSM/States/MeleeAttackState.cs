@@ -29,9 +29,9 @@ public class MeleeAttackState : AttackState
         base.Exit();
     }
 
-    public override void FinishAttack()
+    public override void AnimationFinishTrigger()
     {
-        base.FinishAttack();
+        base.AnimationFinishTrigger();
     }
 
     public override void LogicUpdate()
@@ -44,9 +44,9 @@ public class MeleeAttackState : AttackState
         base.PhysicsUpdate();
     }
 
-    public override void TriggerAttack()
+    public override void AnimationTrigger()
     {
-        base.TriggerAttack();
+        base.AnimationTrigger();
 
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackPosition.position, stateData.attackRadius, stateData.whatIsTarget);
         foreach (Collider2D collider in detectedObjects)

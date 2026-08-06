@@ -11,4 +11,7 @@ public class AnimToFSM : MonoBehaviour
     }
 
     private void AnimationFinishTrigger() { thisState.AnimationFinishTrigger(); }
+    
+    // Renamed method to avoid conflict with AnimToWeapon
+    private void FSMAnimationFinishTrigger() { thisState.AnimationFinishTrigger(); }
 }

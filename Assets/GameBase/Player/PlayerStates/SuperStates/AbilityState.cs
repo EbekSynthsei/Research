@@ -5,6 +5,7 @@ using UnityEngine;
 public class AbilityState : O_State
 {
     protected bool isAbilityDone;
+    protected float maxStateDuration = 3f; // safety timeout, override per stato se serve
     public override bool CanBeInterrupted() => isAbilityDone;
     public AbilityState(Entity _entity, FSM _stateMachine, string _animBoolName, Player _player) : base(_entity, _stateMachine, _animBoolName, _player)
     {
@@ -31,6 +32,14 @@ public class AbilityState : O_State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        
+        if (!isAbilityDone && Time.time >= StartTime + maxStateDuration)
+        {
+            Debug.LogError($"{entity}: '{animBoolName}' non ha ricevuto AnimationFinishTrigger entro {maxStateDuration}s. " +
+                "Controlla gli Animation Event sulla clip.", entity);
+            isAbilityDone = true;
+        }
+
         if (isAbilityDone)
         {
             if (isGrounded && Core.movement.CurrentVelocity.y < 0.01f)
@@ -48,5 +57,4 @@ public class AbilityState : O_State
     {
         base.PhysicsUpdate();
     }
-
 }

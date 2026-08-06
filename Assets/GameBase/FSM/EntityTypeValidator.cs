@@ -26,13 +26,13 @@ public static class EntityTypeValidator
         {
             ExpectedLayer = "Player",
             ExpectedTag = "Player",
-            RequiredComponents = new[] { typeof(CORE), typeof(AnimToFSM), typeof(AttackToFSM), typeof(Animator), typeof(Rigidbody2D) }
+            RequiredComponents = new[] { typeof(CORE), typeof(AnimToFSM), typeof(Animator), typeof(Rigidbody2D) }
         },
         [EntityType.Enemy] = new Requirements
         {
             ExpectedLayer = "Enemy",
             ExpectedTag = "Enemy",
-            RequiredComponents = new[] { typeof(CORE), typeof(AnimToFSM), typeof(AttackToFSM), typeof(Animator), typeof(Rigidbody2D) }
+            RequiredComponents = new[] { typeof(CORE), typeof(AnimToFSM), typeof(Animator), typeof(Rigidbody2D) }
         },
         [EntityType.NPC] = new Requirements
         {

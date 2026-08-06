@@ -4,41 +4,62 @@ using UnityEngine;
 
 public class AggressiveWeapon : Weapon
 {
-    private List<IDamageable> detectedDamageable = new List<IDamageable>();
+    private readonly List<IDamageable> detectedDamageable = new List<IDamageable>();
     protected AggroWeaponData aggressiveWeaponData;
+    private bool isDataValid;
+
     protected override void Awake()
     {
         base.Awake();
-        if(weaponData.GetType() == typeof(AggroWeaponData))
+        if (weaponData.GetType() == typeof(AggroWeaponData))
         {
             aggressiveWeaponData = (AggroWeaponData)weaponData;
+            isDataValid = true;
         }
         else
         {
             Debug.LogError("Wrong Weapon Data", this);
+            isDataValid = false;
         }
     }
+
     public override void AnimationActionTrigger()
     {
         base.AnimationActionTrigger();
         CheckMeleeAttack();
     }
+
     private void CheckMeleeAttack()
     {
-        WeaponAttackData details = aggressiveWeaponData.AttackDetails[AttackCounter];
-        foreach(IDamageable item in detectedDamageable)
+        if (!isDataValid)
         {
-            item.Damage(details.damageAmount);
+            return;
+        }
+
+        if (AttackCounter < 0 || AttackCounter >= aggressiveWeaponData.AttackDetails.Length)
+        {
+            Debug.LogError($"{name}: AttackCounter ({AttackCounter}) out of range for AttackDetails " +
+                $"(length {aggressiveWeaponData.AttackDetails.Length}). Controlla amountOfAttack in WeaponData.", this);
+            return;
+        }
+
+        WeaponAttackData details = aggressiveWeaponData.AttackDetails[AttackCounter];
+
+        for (int i = detectedDamageable.Count - 1; i >= 0; i--)
+        {
+            detectedDamageable[i]?.Damage(details.damageAmount);
         }
     }
+
     public void AddToDetected(Collider2D collision)
     {
         IDamageable damageable = collision.GetComponent<IDamageable>();
-        if (damageable != null)
+        if (damageable != null && !detectedDamageable.Contains(damageable))
         {
             detectedDamageable.Add(damageable);
         }
     }
+
     public void RemoveFromDetected(Collider2D collision)
     {
         IDamageable damageable = collision.GetComponent<IDamageable>();

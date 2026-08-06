@@ -5,9 +5,10 @@ using UnityEngine;
 public class AttackState : State
 {
     protected Transform attackPosition;
-
     protected bool isTargetInMinAggroRange;
-    public AttackState(Entity _entity, FSM _stateMachine, string _animBoolName, Transform _attackPosition) : base(_entity, _stateMachine, _animBoolName)
+
+    public AttackState(Entity _entity, FSM _stateMachine, string _animBoolName, Transform _attackPosition)
+        : base(_entity, _stateMachine, _animBoolName)
     {
         attackPosition = _attackPosition;
     }
@@ -21,7 +22,7 @@ public class AttackState : State
     public override void Enter()
     {
         base.Enter();
-        entity.AttackFSM.attackState = this;
+        // entity.AnimToFSM.thisState = this; è già fatto da base.Enter() in State.cs
         Core.movement.SetVelocityFacingDirection(0.0f);
     }
 
@@ -39,12 +40,27 @@ public class AttackState : State
     {
         base.PhysicsUpdate();
     }
-    public virtual void TriggerAttack()
-    {
 
-    }
-    public virtual void FinishAttack()
+    #region AnimationTriggers
+
+    /// <summary>
+    /// Chiamato dall'Animation Event "AnimationTrigger" sulla clip di attacco nemico.
+    /// Sostituisce il vecchio TriggerAttack().
+    /// </summary>
+    public override void AnimationTrigger()
     {
-        isAnimationFinished = true;
+        base.AnimationTrigger();
     }
+
+    /// <summary>
+    /// Chiamato dall'Animation Event "AnimationFinishTrigger" a fine clip.
+    /// Sostituisce il vecchio FinishAttack(). isAnimationFinished viene già
+    /// settato da base.AnimationFinishTrigger() in State.cs.
+    /// </summary>
+    public override void AnimationFinishTrigger()
+    {
+        base.AnimationFinishTrigger();
+    }
+
+    #endregion
 }

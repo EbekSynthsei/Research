@@ -1,14 +1,14 @@
 ﻿using System;
 using UnityEngine;
 using LaniakeaCode.Events;
-using Cinemachine;
+using Unity.Cinemachine;
 
 namespace LaniakeaCode.Utilities
 {
     public class CameraBehaviourManager : MonoBehaviour
     {
         [Header("Cinemachine")]
-        [SerializeField] private CinemachineVirtualCamera poiCamera;
+        [SerializeField] private CinemachineCamera poiCamera;
         [SerializeField] private float defaultPOIReturnDelay = 2f;
 
         private Animator animator;

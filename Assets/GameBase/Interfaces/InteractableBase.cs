@@ -1,4 +1,4 @@
-using Cinemachine;
+using Unity.Cinemachine;
 using LaniakeaCode.Events;
 using System;
 using UnityEngine;

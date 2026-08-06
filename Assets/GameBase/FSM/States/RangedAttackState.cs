@@ -27,9 +27,9 @@ public class RangedAttackState : AttackState
         base.Exit();
     }
 
-    public override void FinishAttack()
+    public override void AnimationFinishTrigger()
     {
-        base.FinishAttack();
+        base.AnimationFinishTrigger();
     }
 
     public override void LogicUpdate()
@@ -42,9 +42,9 @@ public class RangedAttackState : AttackState
         base.PhysicsUpdate();
     }
 
-    public override void TriggerAttack()
+    public override void AnimationTrigger()
     {
-        base.TriggerAttack();
+        base.AnimationTrigger();
         projectile = GameObject.Instantiate(stateData.projectile, attackPosition.position, attackPosition.rotation);
         projectileScript = projectile.GetComponent<Projectile>();
         projectileScript.FireProjectile(stateData.projectileSpeed, stateData.projectileTravelDistance, stateData.projectileDamage);

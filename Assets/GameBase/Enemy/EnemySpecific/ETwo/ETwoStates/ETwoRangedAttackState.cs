@@ -25,9 +25,9 @@ public class ETwoRangedAttackState : RangedAttackState
         base.Exit();
     }
 
-    public override void FinishAttack()
+    public override void AnimationFinishTrigger()
     {
-        base.FinishAttack();
+        base.AnimationFinishTrigger();
     }
 
     public override void LogicUpdate()
@@ -51,8 +51,8 @@ public class ETwoRangedAttackState : RangedAttackState
         base.PhysicsUpdate();
     }
 
-    public override void TriggerAttack()
+    public override void AnimationTrigger()
     {
-        base.TriggerAttack();
+        base.AnimationTrigger();
     }
 }
