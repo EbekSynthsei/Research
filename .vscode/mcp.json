@@ -7,6 +7,30 @@
     "blender": {
       "command": "uvx",
       "args": ["blender-mcp"]
+    },
+    "duckduckgo": {
+      "command": "uvx",
+      "args": ["duckduckgo-mcp-server"]
+    },
+    "pixel-mcp": {
+      "command": "D:\\Dati Utente\\Documents\\GitHub\\pixel-mcp\\bin\\pixel-mcp.exe"
+    },
+    "aseprite-mcp": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "D:\\Dati Utente\\Documents\\GitHub\\aseprite-mcp",
+        "run",
+        "-m", "aseprite_mcp"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
     }
   }
 }
